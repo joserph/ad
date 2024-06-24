@@ -19,6 +19,8 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\MembersUpdateRequest;
+
 
 class MembersController extends Controller
 {
@@ -48,21 +50,70 @@ class MembersController extends Controller
         $optionsBuro = Positions::getBuro();
         $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
         $optionsBuroSecCultura = Positions::getBuroSecCultura();
-        // $seccionales = Seccional::all();
+        $optionsBuroSecAgraria = Positions::getBuroSecAgraria();
+        $optionsBuroSecAsuntosMunicipales = Positions::getBuroSecAsuntosMunicipales();
+        $optionsBuroSecEducacion = Positions::getBuroSecEducacion();
+        $optionsBuroSecJuvenil = Positions::getBuroSecJuvenil();
+        $optionsBuroSecSindical = Positions::getBuroSecSindical();
+        $optionsBuroSecProfesionalesYTecnicos = Positions::getBuroSecProfesionalesYTecnicos();
+        //dd(Positions::getBuroSecCultura()[1]);
+        $seccionales = Seccional::all();
 
-        $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
-            return ['key' => $key, 'value' => $value];
-        })->values()->toJson();
+        // $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
 
-        $optionsBuroSecFemenina = collect($optionsBuroSecFemenina)->map(function ($value, $key) {
-            return ['key' => $key, 'value' => $value];
-        })->values()->toJson();
+        // $optionsBuroSecFemenina = collect($optionsBuroSecFemenina)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
 
-        $optionsBuroSecCultura = collect($optionsBuroSecCultura)->map(function ($value, $key) {
-            return ['key' => $key, 'value' => $value];
-        })->values()->toJson();
+        // $optionsBuroSecCultura = collect($optionsBuroSecCultura)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
 
-        return view('pages.members.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'members', 'geograficos'));
+        // $optionsBuroSecAgraria = collect($optionsBuroSecAgraria)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+
+        // $optionsBuroSecAsuntosMunicipales = collect($optionsBuroSecAsuntosMunicipales)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+
+        // $optionsBuroSecEducacion = collect($optionsBuroSecEducacion)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+
+        // $optionsBuroSecJuvenil = collect($optionsBuroSecJuvenil)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+
+        // $optionsBuroSecSindical = collect($optionsBuroSecSindical)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+
+        // $optionsBuroSecProfesionalesYTecnicos = collect($optionsBuroSecProfesionalesYTecnicos)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+        //dd($optionsPositions);
+
+        return view('pages.members.create', compact('optionsScope', 
+            'optionsGender', 
+            'optionsSocialN', 
+            'optionsTypesPositions', 
+            'optionsPositions', 
+            'optionsBuro', 
+            'optionsBuroSecFemenina', 
+            'optionsBuroSecCultura', 
+            'members', 
+            'geograficos',
+            'optionsBuroSecAgraria',
+            'optionsBuroSecAsuntosMunicipales',
+            'optionsBuroSecEducacion',
+            'optionsBuroSecJuvenil',
+            'optionsBuroSecSindical',
+            'optionsBuroSecProfesionalesYTecnicos',
+            'seccionales'
+        ));
     }
 
     public function getScopeInfo()
@@ -265,7 +316,7 @@ class MembersController extends Controller
             })
             ->editColumn('cargo', function($row) {
                 $tipoCargoDescripcion = Positions::getTypesPositions()[$row->tipo_cargo] ?? '';
-
+                //var_dump($tipoCargoDescripcion);
                 $cargoDescripcion = $row->cargo !== null ? (Positions::getPositions()[$row->cargo] ?? 'No definido') : '';
 
                 $html = '<div class="d-flex flex-column">' .
@@ -276,9 +327,24 @@ class MembersController extends Controller
             })
             ->editColumn('buro', function($row) {
                 $html = '';
-                if ($row->buro != '') {
-                    $html = $row->buro;
-                } else {
+                //var_dump($html);
+                if ($row->cargo == 0) {
+                    $html = Positions::getBuroSecAgraria()[$row->buro];
+                }elseif($row->cargo == 1){
+                    $html = Positions::getBuroSecAsuntosMunicipales()[$row->buro];
+                }elseif($row->cargo == 2){
+                    $html = Positions::getBuroSecCultura()[$row->buro];
+                }elseif($row->cargo == 3){
+                    $html = Positions::getBuroSecEducacion()[$row->buro];
+                }elseif($row->cargo == 4){
+                    $html = Positions::getBuroSecFemenina()[$row->buro];
+                }elseif($row->cargo == 5){
+                    $html = Positions::getBuroSecJuvenil()[$row->buro];
+                }elseif($row->cargo == 6){
+                    $html = Positions::getBuroSecSindical()[$row->buro];
+                }elseif($row->cargo == 7){
+                    $html = Positions::getBuroSecProfesionalesYTecnicos()[$row->buro];
+                }else{
                     $html = '<small class="fw-bolder">No asignado</small>';
                 }
                 return $html;
@@ -308,9 +374,11 @@ class MembersController extends Controller
 
     public function searchDoc(Request $request)
     {
+        
         $ci = $request->ci;
+        
         $path = public_path('assets/data/re20240131_pp.txt');
-
+        //dd($path);
         if (File::exists($path)) {
             $file = fopen($path, 'r');
 
@@ -352,6 +420,7 @@ class MembersController extends Controller
      */
     public function edit(Members $members)
     {
+        //dd($members);
         $geograficos = Geograficos::all();
         $optionsScope = Scope::getOptions();
         $optionsGender = Gender::getGenders();
@@ -361,21 +430,69 @@ class MembersController extends Controller
         $optionsBuro = Positions::getBuro();
         $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
         $optionsBuroSecCultura = Positions::getBuroSecCultura();
+        $optionsBuroSecAgraria = Positions::getBuroSecAgraria();
+        $optionsBuroSecAsuntosMunicipales = Positions::getBuroSecAsuntosMunicipales();
+        $optionsBuroSecEducacion = Positions::getBuroSecEducacion();
+        $optionsBuroSecJuvenil = Positions::getBuroSecJuvenil();
+        $optionsBuroSecSindical = Positions::getBuroSecSindical();
+        $optionsBuroSecProfesionalesYTecnicos = Positions::getBuroSecProfesionalesYTecnicos();
+        $seccionales = Seccional::all();
         // $seccionales = Seccional::all();
+        //dd($optionsBuroSecAgraria);
 
-        $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
-            return ['key' => $key, 'value' => $value];
-        })->values()->toJson();
+        // $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
 
-        $optionsBuroSecFemenina = collect($optionsBuroSecFemenina)->map(function ($value, $key) {
-            return ['key' => $key, 'value' => $value];
-        })->values()->toJson();
+        // $optionsBuroSecFemenina = collect($optionsBuroSecFemenina)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
 
-        $optionsBuroSecCultura = collect($optionsBuroSecCultura)->map(function ($value, $key) {
-            return ['key' => $key, 'value' => $value];
-        })->values()->toJson();
+        // $optionsBuroSecCultura = collect($optionsBuroSecCultura)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
 
-        return view('pages.members.edit', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'geograficos'));
+        // $optionsBuroSecAgraria = collect($optionsBuroSecAgraria)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+
+        // $optionsBuroSecAsuntosMunicipales = collect($optionsBuroSecAsuntosMunicipales)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+
+        // $optionsBuroSecEducacion = collect($optionsBuroSecEducacion)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+
+        // $optionsBuroSecJuvenil = collect($optionsBuroSecJuvenil)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+
+        // $optionsBuroSecSindical = collect($optionsBuroSecSindical)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+
+        // $optionsBuroSecProfesionalesYTecnicos = collect($optionsBuroSecProfesionalesYTecnicos)->map(function ($value, $key) {
+        //     return ['key' => $key, 'value' => $value];
+        // })->values()->toJson();
+
+        return view('pages.members.edit', compact('optionsScope', 
+            'optionsGender', 
+            'optionsSocialN', 
+            'optionsTypesPositions', 
+            'optionsPositions', 
+            'optionsBuro', 
+            'optionsBuroSecFemenina', 
+            'optionsBuroSecCultura', 
+            'geograficos',
+            'optionsBuroSecAgraria',
+            'optionsBuroSecAsuntosMunicipales',
+            'optionsBuroSecEducacion',
+            'optionsBuroSecJuvenil',
+            'optionsBuroSecSindical',
+            'optionsBuroSecProfesionalesYTecnicos',
+            'members',
+            'seccionales'));
     }
 
     /**
@@ -385,9 +502,38 @@ class MembersController extends Controller
      * @param  \App\Models\Members  $members
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Members $members)
+    public function update(MembersUpdateRequest $request, $id)
     {
-        //
+        //dd($request);
+        $member = Members::find($id);
+
+        $member->update($request->all());
+        $buro = '';
+        if($request->buro_sec_agraria >= 0 && $request->buro_sec_agraria < 3 && $request->cargo == 0){
+            $buro = $request->buro_sec_agraria;
+        }elseif($request->buro_sec_asuntos_municipales > 2 && $request->buro_sec_asuntos_municipales < 6 && $request->cargo == 1){
+            $buro = $request->buro_sec_asuntos_municipales;
+            //dd($buro);
+        }elseif($request->buro_sec_cultura > 5 && $request->buro_sec_cultura < 9 && $request->cargo == 2){
+            $buro = $request->buro_sec_cultura;
+        }elseif($request->buro_sec_educacion > 8 && $request->buro_sec_educacion < 12 && $request->cargo == 3){
+            $buro = $request->buro_sec_educacion;
+        }elseif($request->buro_sec_femenina > 11 && $request->buro_sec_femenina < 15 && $request->cargo == 4){
+            $buro = $request->buro_sec_femenina;
+        }elseif($request->buro_sec_juvenil > 14 && $request->buro_sec_juvenil < 30 && $request->cargo == 5){
+            $buro = $request->buro_sec_juvenil;
+        }elseif($request->buro_sec_sindical > 29 && $request->buro_sec_sindical < 33 && $request->cargo == 6){
+            $buro = $request->buro_sec_sindical;
+        }elseif($request->buro_sec_profesionales_y_tecnico > 32 && $request->buro_sec_profesionales_y_tecnico < 36 && $request->cargo == 7){
+            $buro = $request->buro_sec_profesionales_y_tecnico;
+        }
+        
+        $member['buro'] = $buro;
+        $member->save();
+        //dd($member);
+        session()->flash('success', 'Miembro actualizado con éxito!');
+
+        return redirect()->route('members.index');
     }
 
     /**

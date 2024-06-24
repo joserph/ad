@@ -104,6 +104,27 @@
                         <span class="hide-menu">Registrar</span>
                     </a>
                 </li>
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Uno por Diez</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::currentRouteName() == 'onexten.index' ? 'active' : '' }}" href="{{ route('onexten.index') }}">
+                        <span>
+                            <i class="ti ti-list-details"></i>
+                        </span>
+                        <span class="hide-menu">Listado</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::currentRouteName() == 'onexten.create' ? 'active' : '' }}" href="{{ route('onexten.create') }}">
+                        <span>
+                            <i class="ti ti-circle-plus"></i>
+                        </span>
+                        <span class="hide-menu">Registrar 1 x 10</span>
+                    </a>
+                </li>
 
                 {{-- <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>

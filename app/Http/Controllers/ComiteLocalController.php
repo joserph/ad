@@ -69,6 +69,7 @@ class ComiteLocalController extends Controller
 
     public function list()
     {
+        
         $model = Comite::query()->orderBy('created_at', 'desc');
 
         $data = DataTables::of($model)

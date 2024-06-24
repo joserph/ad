@@ -150,12 +150,12 @@
                     <label for="seccional" class="form-label">Seccional</label>
                     <select class="form-control select2 @error('seccional') is-invalid @enderror" id="seccional" name="seccional">
                         <option value="">Seleccionar</option>
-                        {{-- @foreach ($seccionales as $seccional)
+                        @foreach ($seccionales as $seccional)
                             @php
                                 $nombre = str_replace('EDO. ', '', $seccional->nombre);
                             @endphp
-                            <option value="{{ $seccional->id }}">{{ $nombre }}</option>
-                        @endforeach --}}
+                            <option value="{{ $seccional->nombre }}">{{ $nombre }}</option>
+                        @endforeach
                     </select>
                     @error('seccional')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -210,11 +210,114 @@
                     @enderror
                 </div>
 
-                <!-- Buro -->
+                
+
+                <!-- Buro_sec_agraria -->
                 <div class="mb-3 col-md-6 col-lg-4 d-none">
-                    <label for="buro" class="form-label">Buró</label>
-                    <select class="form-control select2 @error('buro') is-invalid @enderror" id="buro" name="buro">
+                    <label for="buro_sec_agraria" class="form-label">Buró</label>
+                    <select class="form-control select2 @error('buro_sec_agraria') is-invalid @enderror" id="buro_sec_agraria" name="buro_sec_agraria">
                         <option value="">Seleccionar</option>
+                        @foreach ($optionsBuroSecAgraria as $value => $label)
+                            <option value="{{ $value }}" @selected(old('buro', $members->buro) == $value)>{{ $label }}</option>";
+                        @endforeach
+                    </select>
+                    @error('buro')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Buro_sec_asuntos_municipales -->
+                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                    <label for="buro_sec_asuntos_municipales" class="form-label">Buró</label>
+                    <select class="form-control select2 @error('buro_sec_asuntos_municipales') is-invalid @enderror" id="buro_sec_asuntos_municipales" name="buro_sec_asuntos_municipales">
+                        <option value="">Seleccionar</option>
+                        @foreach ($optionsBuroSecAsuntosMunicipales as $value => $label)
+                            <option value="{{ $value }}" @selected(old('buro', $members->buro) == $value)>{{ $label }}</option>";
+                        @endforeach
+                    </select>
+                    @error('buro')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Buro_sec_cultura -->
+                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                    <label for="buro_sec_cultura" class="form-label">Buró</label>
+                    <select class="form-control select2 @error('buro_sec_cultura') is-invalid @enderror" id="buro_sec_cultura" name="buro_sec_cultura">
+                        <option value="">Seleccionar</option>
+                        @foreach ($optionsBuroSecCultura as $value => $label)
+                            <option value="{{ $value }}" @selected(old('buro', $members->buro) == $value)>{{ $label }}</option>";
+                        @endforeach
+                    </select>
+                    @error('buro')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Buro_sec_educacion -->
+                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                    <label for="buro_sec_educacion" class="form-label">Buró</label>
+                    <select class="form-control select2 @error('buro_sec_educacion') is-invalid @enderror" id="buro_sec_educacion" name="buro_sec_educacion">
+                        <option value="">Seleccionar</option>
+                        @foreach ($optionsBuroSecEducacion as $value => $label)
+                            <option value="{{ $value }}" @selected(old('buro', $members->buro) == $value)>{{ $label }}</option>";
+                        @endforeach
+                    </select>
+                    @error('buro')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Buro_sec_femenina -->
+                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                    <label for="buro_sec_femenina" class="form-label">Buró</label>
+                    <select class="form-control select2 @error('buro_sec_femenina') is-invalid @enderror" id="buro_sec_femenina" name="buro_sec_femenina">
+                        <option value="">Seleccionar</option>
+                        @foreach ($optionsBuroSecFemenina as $value => $label)
+                            <option value="{{ $value }}" @selected(old('buro', $members->buro) == $value)>{{ $label }}</option>";
+                        @endforeach
+                    </select>
+                    @error('buro')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Buro_sec_juvenil -->
+                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                    <label for="buro_sec_juvenil" class="form-label">Buró</label>
+                    <select class="form-control select2 @error('buro_sec_juvenil') is-invalid @enderror" id="buro_sec_juvenil" name="buro_sec_juvenil">
+                        <option value="">Seleccionar</option>
+                        @foreach ($optionsBuroSecJuvenil as $value => $label)
+                            <option value="{{ $value }}" @selected(old('buro', $members->buro) == $value)>{{ $label }}</option>";
+                        @endforeach
+                    </select>
+                    @error('buro')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Buro_sec_sindical -->
+                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                    <label for="buro_sec_sindical" class="form-label">Buró</label>
+                    <select class="form-control select2 @error('buro_sec_sindical') is-invalid @enderror" id="buro_sec_sindical" name="buro_sec_sindical">
+                        <option value="">Seleccionar</option>
+                        @foreach ($optionsBuroSecSindical as $value => $label)
+                            <option value="{{ $value }}" @selected(old('buro', $members->buro) == $value)>{{ $label }}</option>";
+                        @endforeach
+                    </select>
+                    @error('buro')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Buro_sec_profesionales_y_tecnico -->
+                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                    <label for="buro_sec_profesionales_y_tecnico" class="form-label">Buró</label>
+                    <select class="form-control select2 @error('buro_sec_profesionales_y_tecnico') is-invalid @enderror" id="buro_sec_profesionales_y_tecnico" name="buro_sec_profesionales_y_tecnico">
+                        <option value="">Seleccionar</option>
+                        @foreach ($optionsBuroSecProfesionalesYTecnicos as $value => $label)
+                            <option value="{{ $value }}" @selected(old('buro', $members->buro) == $value)>{{ $label }}</option>";
+                        @endforeach
                     </select>
                     @error('buro')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -288,6 +391,13 @@
         window.opcionesBuro = @json($optionsBuro);
         window.opcionesBuroSecFemenina = @json($optionsBuroSecFemenina);
         window.opcionesBuroSecCultura = @json($optionsBuroSecCultura);
+        window.opcionesBuroSecAgraria = @json($optionsBuroSecAgraria);
+        window.opcionesBuroSecAsusntosMunicipales = @json($optionsBuroSecAsuntosMunicipales);
+        window.opcionesBuroSecEducacion = @json($optionsBuroSecEducacion);
+        window.opcionesBuroSecJuvenil = @json($optionsBuroSecJuvenil);
+        window.opcionesBuroSecSindical = @json($optionsBuroSecSindical);
+        window.opcionesBuroSecProfesionalesYTecnicos = @json($optionsBuroSecProfesionalesYTecnicos);
+        //console.log(window.geograficos);
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
     <script src="{{ asset('assets/libs/select2/js/select2.full.min.js') }}"></script>

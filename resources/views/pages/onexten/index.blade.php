@@ -14,14 +14,14 @@
             <div class="card-body px-4 py-3" bis_skin_checked="1">
               <div class="row align-items-center" bis_skin_checked="1">
                 <div class="col-9" bis_skin_checked="1">
-                  <h4 class="fw-semibold mb-8">Listado de Miembros</h4>
+                  <h4 class="fw-semibold mb-8">Listado 1 x 10</h4>
                   <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
                             <a class="text-muted text-decoration-none" href="{{ route('notices.home') }}">Inicio</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a class="text-muted text-decoration-none" href="{{ route('members.index') }}">Miembros</a>
+                            <a class="text-muted text-decoration-none" href="{{ route('onexten.index') }}">1 x 10</a>
                         </li>
                         <li class="breadcrumb-item" aria-current="page">Listado</li>
                     </ol>
@@ -37,74 +37,50 @@
         </div>
 
         <div class="table-responsive">
-            <table id="datatable-members" class="table border table-striped table-bordered text-nowrap align-middle dataTableCurrent">
+            <table id="datatable-onexten" class="table border table-striped table-bordered text-nowrap align-middle dataTableCurrent">
                 <thead>
                     <!-- start row -->
                     <tr>
-                        <th></th>
-                        <th>Nombre Completo</th>
-                        {{-- <th>CI</th> --}}
-                        <th>Telefono</th>
-                        <th>Correo</th>
-                        <th>F. Nacimiento</th>
-                        <th>Cargo</th>
-                        <th>Buró</th>
-                        <th>Acciones</th>
+                        <th>responsable</th>
+                        
                     </tr>
                     <!-- end row -->
                 </thead>
-                <tbody>
-
-                </tbody>
-                <tfoot>
-                    <!-- start row -->
-                    <tr>
-                        <th></th>
-                        <th>Nombre Completo</th>
-                        {{-- <th>CI</th> --}}
-                        <th>Telefono</th>
-                        <th>Correo</th>
-                        <th>F. Nacimiento</th>
-                        <th>Cargo</th>
-                        <th>Buró</th>
-                        <th>Acciones</th>
-                    </tr>
-                    <!-- end row -->
-                </tfoot>
+                
             </table>
         </div>
 
         <div class="position-fixed bottom-0 end-0 translate-middle d-none" id="deleteMasive">
-            <a data-path="{{ route('members.modalDeleteMasive') }}" class="btn btn-danger h4 mb-0 d-flex align-items-center text-capitalize modal-pers">Eliminar Miembros <i class="ti ti-alert-circle h4 ms-1 text-white mb-0"></i></a>
+            {{-- <a data-path="{{ route('members.modalDeleteMasive') }}" class="btn btn-danger h4 mb-0 d-flex align-items-center text-capitalize modal-pers">Eliminar Miembros <i class="ti ti-alert-circle h4 ms-1 text-white mb-0"></i></a> --}}
         </div>
     </div>
 @endsection
 
 @section('page-scripts')
     <script>
-        let table = $('#datatable-members').DataTable({
+        let table = $('#datatable-onexten').DataTable({
             processing: true,
             serverSide: true,
             pageLength: 25,
             lengthMenu: [10, 25, 50, 100],
-            ajax: '{{ route("members.list") }}',
+            ajax: '{{ route("dataTableOnexten") }}',
             columns: [
-                {
-                    data: "id",
-                    render: function (data, type, row) {
-                        return '<input type="checkbox" class="select-member form-check-input" value="' + data + '">';
-                    }
-                },
-                { data: 'nombre_completo', name: 'nombre_completo' },
+                // {
+                //     data: "id",
+                //     render: function (data, type, row) {
+                //         return '<input type="checkbox" class="select-member form-check-input" value="' + data + '">';
+                //     }
+                // },
+                { data: 'responsable', name: 'responsable' },
                 // { data: 'apellido', name: 'apellido' },
                 // { data: 'cedula', name: 'cedula' },
-                { data: 'telefono', name: 'telefono' },
-                { data: 'correo', name: 'correo' },
-                { data: 'fecha_nacimiento', name: 'fecha_nacimiento' },
-                { data: 'cargo', name: 'cargo' },
+                //{ data: 'telefono', name: 'telefono' },
+                //{ data: 'seccional', name: 'seccional' },
+                //{ data: 'municipio', name: 'municipio' },
+                //{ data: 'parroquia', name: 'parroquia' },
                 // { data: 'tipo_cargo', name: 'tipo_cargo' },
-                { data: 'buro', name: 'buro' },
-                { data: 'action', name: 'action', orderable: false, searchable: false },
+                //{ data: 'sector', name: 'sector' },
+                //{ data: 'action', name: 'action', orderable: false, searchable: false },
             ],
             language: {
                 processing:     "Procesando...",
@@ -128,9 +104,9 @@
                     sortDescending: ": Activar para ordenar la columna de manera descendente"
                 }
             },
-            initComplete: function() {
-                $('#datatable-members_length, #datatable-members_filter').wrapAll('<div class="d-flex align-items-center justify-content-between"></div>');
-            },
+            // initComplete: function() {
+            //     $('#datatable-members_length, #datatable-members_filter').wrapAll('<div class="d-flex align-items-center justify-content-between"></div>');
+            // },
         });
 
         $('#datatable-members').on('change', '.select-member', function() {

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OnextenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'members', 'as' => 'members.',
     Route::get('/list', 'list')->name('list');
     Route::post('/store', 'store')->name('store');
     Route::post('/comiteStore', 'comiteStore')->name('comiteStore');
-    Route::put('/update', 'update')->name('update');
+    Route::put('/update/{members}', 'update')->name('update');
     Route::get('/edit/{members}', 'edit')->name('edit');
     Route::get('/modal_delete/{members}', 'modal_delete')->name('modalDelete');
     Route::get('/modal_delete_masive', 'modal_delete_masive')->name('modalDeleteMasive');
@@ -77,6 +78,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.', 'co
     Route::get('/useremail', 'useremail')->name('useremail');
     Route::put('/update/{users}', 'update')->name('update');
 });
+
+Route::resource('/onexten', App\Http\Controllers\OnextenController::class)->names('onexten');
+Route::get('dataTableOnexten', 'OnextenController@dataTable')->name('dataTableOnexten');
 
 // Route::group(['prefix' => 'seccional', 'as' => 'seccional.', 'controller' => App\Http\Controllers\SeccionalesController::class], function () {
 //     Route::get('/', 'index')->name('index');
