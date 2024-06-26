@@ -147,15 +147,15 @@
                     @enderror
                 </div>
                 <!-- Seccional -->
-                <div class="mb-3 col-md-6 col-lg-4 @if($members->alcance != 'seccional') d-none @endif">
+                <div class="mb-3 col-md-6 col-lg-4 @if($members->seccional == '') d-none @endif">
                     <label for="seccional" class="form-label">Seccional</label>
                     <select class="form-control select2 @error('seccional') is-invalid @enderror" id="seccional" name="seccional">
-                        <option value="">Seleccionar</option>
+                        <option value="">Seleccionar Seccional</option>
                         @foreach ($seccionales as $value => $seccional)
                             @php
                                 $nombre = str_replace('EDO. ', '', $seccional->nombre);
                             @endphp
-                            <option value="{{ $seccional->nombre }}" @selected(old('seccional', $members->seccional) == $nombre)>{{ $nombre }}</option>
+                            <option value="{{ $seccional->nombre }}" @selected(old('seccional', $members->seccional) == $seccional->nombre)>{{ $nombre }}</option>
                         @endforeach
                     </select>
                     @error('seccional')
@@ -163,17 +163,17 @@
                     @enderror
                 </div>
                 <!-- Municipio -->
-                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                <div class="mb-3 col-md-6 col-lg-4 @if($members->municipio == '') d-none @endif">
                     <label for="municipio" class="form-label">Municipio</label>
                     <select class="form-control select2 @error('municipio') is-invalid @enderror" id="municipio" name="municipio">
-                        <option value="">Seleccionar</option>
+                        <option value="">Seleccionar Municipio</option>
                     </select>
                     @error('municipio')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <!-- Parroquia -->
-                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                <div class="mb-3 col-md-6 col-lg-4 @if($members->parroquia == '') d-none @endif"">
                     <label for="parroquia" class="form-label">Parroquia</label>
                     <select class="form-control select2 @error('parroquia') is-invalid @enderror" id="parroquia" name="parroquia" value="{{ old('parroquia') }}">
                         <option value="">Seleccionar</option>
@@ -387,6 +387,7 @@
         window.urlFetchCiData = "{{ route('members.searchDoc')}}";
         window.urlFetchScopeData = "{{ route('members.getScopeInfo')}}";
         window.geograficos = @json($geograficos);
+        window.municipios = @json($municipios);
         window.opcionesBuro = @json($optionsBuro);
         window.opcionesBuroSecFemenina = @json($optionsBuroSecFemenina);
         window.opcionesBuroSecCultura = @json($optionsBuroSecCultura);
@@ -396,6 +397,7 @@
         window.opcionesBuroSecJuvenil = @json($optionsBuroSecJuvenil);
         window.opcionesBuroSecSindical = @json($optionsBuroSecSindical);
         window.opcionesBuroSecProfesionalesYTecnicos = @json($optionsBuroSecProfesionalesYTecnicos);
+        window.responseData = @json($members);
         //console.log(window.opcionesBuroSecAsusntosMunicipales);
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>

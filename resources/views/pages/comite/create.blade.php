@@ -96,7 +96,7 @@
                         @enderror
                     </div>
                 </div>
-
+                
                 {{-- PRIMER MIEMBRO --}}
                 <div class="row p-3 m-0">
                     <div class="col-12">

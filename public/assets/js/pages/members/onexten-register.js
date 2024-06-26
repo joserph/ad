@@ -1,20 +1,10 @@
 $(document).ready(function () {
+    
     const selectSeccional = $('#seccional');
     const selectMunicipio = $('#municipio');
     const selectParroquia = $('#parroquia');
-
-    // console.log(geograficos, "geo")
-
-    $('.cargoPublicoCheck').on('change', function() {
-        let idCol = $(this).attr('data-col');
-        if ($(this).val() == "si") {
-            $('#'+idCol).removeClass('d-none');
-        } else {
-            $('#'+idCol).addClass('d-none');
-            $(`#${idCol} input`).val('');
-        }
-    });
-
+    console.log(responseData);
+    
     const getUniqueOptions = (data, key) => {
         return [...new Map(data.map(item => [item[key], item])).values()];
     }
@@ -26,21 +16,30 @@ $(document).ready(function () {
         selectSeccional.append(option);
     });
 
-    // console.log(uniqueEstados, "uniqueEstados")
-
-
     $('#seccional').on('change', function() {
+        //console.log('____FFFF----');
         const estado = $(this).val();
+        //console.log(estado, "estado")
         const filteredMunicipios = geograficos.filter(geo => geo.estado == estado);
-        // console.log(filteredMunicipios, "filteredMunicipios")
+        //console.log(filteredMunicipios, "filteredMunicipios")
         const uniqueMunicipios = getUniqueOptions(filteredMunicipios, 'municipio');
-
+        //console.log(uniqueMunicipios)
         selectMunicipio.empty().append('<option value="">Seleccionar</option>');
-        uniqueMunicipios.forEach(geo => {
-            let option = new Option(geo.municipio, geo.municipio);
-            console.log(geo, "item")
-            selectMunicipio.append(option);
-        });
+        if(responseData){
+            uniqueMunicipios.forEach(geo => {
+                let option = new Option(geo.municipio, geo.municipio);
+                if(geo.municipio == responseData.municipio){
+                    option.setAttribute('selected', true);
+                }
+                selectMunicipio.append(option);
+            });
+        }else{
+            uniqueMunicipios.forEach(geo => {
+                let option = new Option(geo.municipio, geo.municipio);
+                selectMunicipio.append(option);
+            });
+        }
+        
         selectParroquia.empty().append('<option value="">Seleccionar</option>');
         selectMunicipio.trigger('change');
     });
@@ -51,69 +50,27 @@ $(document).ready(function () {
         const uniqueParroquias = getUniqueOptions(filteredParroquias, 'parroquia');
 
         selectParroquia.empty().append('<option value="">Seleccionar</option>');
-        uniqueParroquias.forEach(geo => {
-            let option = new Option(geo.parroquia, geo.parroquia);
-            selectParroquia.append(option);
-        });
+        if(responseData){
+            uniqueParroquias.forEach(geo => {
+                // console.log(geo.parroquia)
+                let option = new Option(geo.parroquia, geo.parroquia);
+                if(geo.parroquia == responseData.parroquia){
+                    option.setAttribute('selected', true);
+                }
+                //console.log(option, " -item")
+                selectParroquia.append(option);
+            });
+        }else{
+            uniqueParroquias.forEach(geo => {
+                let option = new Option(geo.parroquia, geo.parroquia);
+                selectParroquia.append(option);
+            });
+        }
+        
     });
 
     selectSeccional.trigger('change');
     selectMunicipio.trigger('change');
-
-    $('.tipo_cargo').on('change', function (e) {
-        let idCol = $(this).attr('data-col');
-        if ($(this).val() == 5) {
-            $('#'+idCol).parent().removeClass('d-none');
-            $('#'+idCol).prop('disabled', false).trigger('change');
-            $('#'+idCol+'buro').parent().removeClass('d-none');
-            $('#'+idCol+'buro').prop('disabled', false).trigger('change');
-        } else {
-            $('#'+idCol).parent().addClass('d-none');
-            $('#'+idCol).prop('disabled', true).trigger('change');
-            $('#'+idCol+'buro').parent().addClass('d-none');
-            $('#'+idCol+'buro').prop('disabled', true).trigger('change');
-        }
-    });
-
-    const selectBuro = $('#buro');
-    const opcionesBuro = JSON.parse(window.opcionesBuro);
-    const opcionesBuroSecFemenina = JSON.parse(window.opcionesBuroSecFemenina);
-    const opcionesBuroSecCultura = JSON.parse(window.opcionesBuroSecCultura);
-
-    $('#cargo').on('change', function (e) {
-        selectBuro.empty();
-        selectBuro.prepend('<option value="" selected>Seleccionar</option>');
-
-        if ($(this).val() == 4) { // ? SECRETARIA FEMENINA
-
-            opcionesBuroSecFemenina.forEach(function(op, indice) {
-                let option = new Option(op.value, op.key, false, false);
-                selectBuro.append(option);
-            });
-
-            opcionesBuro.forEach(function(op, indice) {
-                let option = new Option(op.value, op.key, false, false);
-                selectBuro.append(option);
-            });
-
-            selectBuro.trigger('change');
-
-        } else if ($(this).val() == 2) { // ? SECRETARIO CULTURA
-
-            opcionesBuroSecCultura.forEach(function(op, indice) {
-                let option = new Option(op.value, op.key, false, false);
-                selectBuro.append(option);
-            });
-
-            opcionesBuro.forEach(function(op, indice) {
-                let option = new Option(op.value, op.key, false, false);
-                selectBuro.append(option);
-            });
-
-            selectBuro.trigger('change');
-
-        }
-    });
 
     $('.cedula').keyup(function (e) {
         let cedula = $(this).val();

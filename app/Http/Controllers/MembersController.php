@@ -135,16 +135,37 @@ class MembersController extends Controller
      */
     public function store(MembersStoreRequest $request)
     {
-        // return $request;
         $validated = $request->validated();
 
         DB::beginTransaction();
         try {
             $member = Members::create($validated);
 
+            $buro = '';
+            if($request->buro_sec_agraria >= 0 && $request->buro_sec_agraria < 3 && $request->cargo == 0){
+                $buro = $request->buro_sec_agraria;
+            }elseif($request->buro_sec_asuntos_municipales > 2 && $request->buro_sec_asuntos_municipales < 6 && $request->cargo == 1){
+                $buro = $request->buro_sec_asuntos_municipales;
+            }elseif($request->buro_sec_cultura > 5 && $request->buro_sec_cultura < 9 && $request->cargo == 2){
+                $buro = $request->buro_sec_cultura;
+            }elseif($request->buro_sec_educacion > 8 && $request->buro_sec_educacion < 12 && $request->cargo == 3){
+                $buro = $request->buro_sec_educacion;
+            }elseif($request->buro_sec_femenina > 11 && $request->buro_sec_femenina < 15 && $request->cargo == 4){
+                $buro = $request->buro_sec_femenina;
+            }elseif($request->buro_sec_juvenil > 14 && $request->buro_sec_juvenil < 30 && $request->cargo == 5){
+                $buro = $request->buro_sec_juvenil;
+            }elseif($request->buro_sec_sindical > 29 && $request->buro_sec_sindical < 33 && $request->cargo == 6){
+                $buro = $request->buro_sec_sindical;
+            }elseif($request->buro_sec_profesionales_y_tecnico > 32 && $request->buro_sec_profesionales_y_tecnico < 36 && $request->cargo == 7){
+                $buro = $request->buro_sec_profesionales_y_tecnico;
+            }
+            
+            $member['buro'] = $buro;
+            $member->save();
+
             DB::commit();
 
-            session()->flash('success', 'Usuario creado con éxito.');
+            session()->flash('success', 'Miembro creado con éxito!');
 
             return redirect()->route('members.index');
 
@@ -437,6 +458,8 @@ class MembersController extends Controller
         $optionsBuroSecSindical = Positions::getBuroSecSindical();
         $optionsBuroSecProfesionalesYTecnicos = Positions::getBuroSecProfesionalesYTecnicos();
         $seccionales = Seccional::all();
+        $municipios = Municipio::all();
+        $parroquias = Parroquia::all();
         // $seccionales = Seccional::all();
         //dd($optionsBuroSecAgraria);
 
@@ -492,7 +515,9 @@ class MembersController extends Controller
             'optionsBuroSecSindical',
             'optionsBuroSecProfesionalesYTecnicos',
             'members',
-            'seccionales'));
+            'seccionales',
+            'municipios',
+            'parroquias'));
     }
 
     /**

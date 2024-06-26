@@ -41,12 +41,68 @@
                 <thead>
                     <!-- start row -->
                     <tr>
-                        <th>responsable</th>
-                        
+                        <th>Responsable</th>
+                        <th>Telefono</th>
+                        <th>Seccional</th>
+                        <th>Municipio</th>
+                        <th>Parroquia</th>
+                        <th>Sector</th>
+                        <th>Miembros</th>
+                        <th>Acciones</th>
                     </tr>
                     <!-- end row -->
                 </thead>
-                
+                <tbody>
+                    @foreach ($onextens as $item)
+                        <tr>
+                            <td>{{ $item->responsable }}</td>
+                            <td>{{ $item->telefono }}</td>
+                            <td>{{ $item->seccional }}</td>
+                            <td>{{ $item->municipio }}</td>
+                            <td>{{ $item->parroquia }}</td>
+                            <td>{{ $item->sector }}</td>
+                            <td>
+                                @php
+                                    $countMembers = App\Models\OnextenItem::where('onexten_id', $item->id)->where('cedula', '!=', null)->count();
+                                @endphp
+                                <span class="badge text-bg-success text-center">{{ $countMembers }}</span>
+                                
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                <a href="{{ route('onexten.edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a>
+                                {{-- <form method="POST" action="{{ route('onexten.destroy', $item->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a type="submit" class="btn btn-sm btn-danger" ><i class="ti ti-trash"></i></a>
+                                </form> --}}
+
+                                <form method="POST" action="{{ route('onexten.destroy', $item->id) }}" accept-charset="UTF-8"><input name="_method" type="hidden" value="DELETE">
+                                    @csrf
+                                    <button type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar carga" class="btn btn-sm btn-danger" onclick="return confirm(&quot;¿Seguro de eliminar el 1 x 10?&quot;)"><i class="ti ti-trash"></i> </button>
+                                </form>
+                                
+                                </div>
+                                {{-- {{ Form::open(['route' => ['onexten.destroy', $item->id], 'method' => 'DELETE']) }}
+                                    {{ Form::button('<i class="fas fa-trash-alt"></i> ' . '', ['type' => 'submit', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => 'Eliminar Vuelo', 'class' => 'btn btn-sm btn-outline-danger', 'onclick' => 'return confirm("¿Seguro de eliminar el 1 x 10?")']) }}
+                                {{ Form::close() }} --}}
+                            </td>
+                            
+                        </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Responsable</th>
+                        <th>Telefono</th>
+                        <th>Seccional</th>
+                        <th>Municipio</th>
+                        <th>Parroquia</th>
+                        <th>Sector</th>
+                        <th>Miembros</th>
+                        <th>Acciones</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 
@@ -57,13 +113,13 @@
 @endsection
 
 @section('page-scripts')
-    <script>
+    {{-- <script>
         let table = $('#datatable-onexten').DataTable({
             processing: true,
             serverSide: true,
             pageLength: 25,
             lengthMenu: [10, 25, 50, 100],
-            ajax: '{{ route("dataTableOnexten") }}',
+            ajax: '{{ route("list") }}',
             columns: [
                 // {
                 //     data: "id",
@@ -147,5 +203,5 @@
             });
         });
 
-    </script>
+    </script> --}}
 @endsection

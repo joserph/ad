@@ -397,6 +397,7 @@
         window.opcionesBuroSecJuvenil = @json($optionsBuroSecJuvenil);
         window.opcionesBuroSecSindical = @json($optionsBuroSecSindical);
         window.opcionesBuroSecProfesionalesYTecnicos = @json($optionsBuroSecProfesionalesYTecnicos);
+        window.responseData = null;
         //console.log(window.geograficos);
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>

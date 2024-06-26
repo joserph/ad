@@ -22,7 +22,7 @@ $(document).ready(function () {
     const selectSeccional = $('#seccional');
     const selectMunicipio = $('#municipio');
     const selectParroquia = $('#parroquia');
-
+    console.log(responseData);
     /*const selectBuro = $('#buro');
     const opcionesBuro = JSON.parse(window.opcionesBuro);
     const opcionesBuroSecFemenina = JSON.parse(window.opcionesBuroSecFemenina);
@@ -38,7 +38,7 @@ $(document).ready(function () {
 
     if($('#cargo').val() !== ''){
         let cargo = $('#cargo').val();
-        console.log($('#cargo').val() + 'lalalalala');
+        //console.log($('#cargo').val() + 'lalalalala');
         if(cargo == 0){
             console.log('agraria - ' + $('#buro_sec_agraria').val());
             $('#buro_sec_agraria').parent().removeClass('d-none');
@@ -75,7 +75,7 @@ $(document).ready(function () {
         $('#seccional').prop('disabled', false).trigger('change');
         $('#municipio').prop('disabled', false).trigger('change');
         $('#parroquia').prop('disabled', false).trigger('change');
-
+        console.log(val);
         if (val == "nacional") {
 
             $('#seccional').parent().addClass('d-none');
@@ -86,7 +86,7 @@ $(document).ready(function () {
             $('#parroquia').prop('disabled', true).trigger('change');
 
         } else if (val == "seccional") {
-            //console.log('____FFFF----');
+            console.log('____FFFF----');
             $('#seccional').parent().removeClass('d-none');
             $('#municipio').parent().addClass('d-none');
             $('#parroquia').parent().addClass('d-none');
@@ -138,11 +138,21 @@ $(document).ready(function () {
         const uniqueMunicipios = getUniqueOptions(filteredMunicipios, 'municipio');
         //console.log(uniqueMunicipios)
         selectMunicipio.empty().append('<option value="">Seleccionar</option>');
-        uniqueMunicipios.forEach(geo => {
-            let option = new Option(geo.municipio, geo.municipio);
-            console.log(geo, "item")
-            selectMunicipio.append(option);
-        });
+        if(responseData){
+            uniqueMunicipios.forEach(geo => {
+                let option = new Option(geo.municipio, geo.municipio);
+                if(geo.municipio == responseData.municipio){
+                    option.setAttribute('selected', true);
+                }
+                selectMunicipio.append(option);
+            });
+        }else{
+            uniqueMunicipios.forEach(geo => {
+                let option = new Option(geo.municipio, geo.municipio);
+                selectMunicipio.append(option);
+            });
+        }
+        
         selectParroquia.empty().append('<option value="">Seleccionar</option>');
         selectMunicipio.trigger('change');
     });
@@ -153,10 +163,23 @@ $(document).ready(function () {
         const uniqueParroquias = getUniqueOptions(filteredParroquias, 'parroquia');
 
         selectParroquia.empty().append('<option value="">Seleccionar</option>');
-        uniqueParroquias.forEach(geo => {
-            let option = new Option(geo.parroquia, geo.parroquia);
-            selectParroquia.append(option);
-        });
+        if(responseData){
+            uniqueParroquias.forEach(geo => {
+                // console.log(geo.parroquia)
+                let option = new Option(geo.parroquia, geo.parroquia);
+                if(geo.parroquia == responseData.parroquia){
+                    option.setAttribute('selected', true);
+                }
+                //console.log(option, " -item")
+                selectParroquia.append(option);
+            });
+        }else{
+            uniqueParroquias.forEach(geo => {
+                let option = new Option(geo.parroquia, geo.parroquia);
+                selectParroquia.append(option);
+            });
+        }
+        
     });
 
     selectSeccional.trigger('change');

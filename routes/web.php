@@ -79,8 +79,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.', 'co
     Route::put('/update/{users}', 'update')->name('update');
 });
 
-Route::resource('/onexten', App\Http\Controllers\OnextenController::class)->names('onexten');
-Route::get('dataTableOnexten', 'OnextenController@dataTable')->name('dataTableOnexten');
+Route::resource('/onexten', OnextenController::class)->names('onexten');
+// Route::post('/ci', 'OnextenController@searchDoc')->name('searchDoc');
+// Route::get('/list', 'OnextenController@list')->name('list');
 
 // Route::group(['prefix' => 'seccional', 'as' => 'seccional.', 'controller' => App\Http\Controllers\SeccionalesController::class], function () {
 //     Route::get('/', 'index')->name('index');
