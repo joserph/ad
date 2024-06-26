@@ -152,7 +152,7 @@
                     <!-- Centro de Votacion -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="centro_votacion" class="form-label">Centro de Votacion</label>
-                        <input type="text" class="form-control @error('centro_votacion.0') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.0') }}">
+                        <input type="text" class="form-control centro_votacion @error('centro_votacion.0') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.0') }}">
                         @error('centro_votacion.0')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -192,7 +192,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row p-3 bg-light-subtle m-0 member1">
+                <div class="row p-3 bg-light-subtle m-0 member2">
                     <!-- Teléfono -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="num_telefono" class="form-label">Telefono</label>
@@ -212,7 +212,7 @@
                     <!-- Centro de Votacion -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="centro_votacion" class="form-label">Centro de Votacion</label>
-                        <input type="text" class="form-control @error('centro_votacion.1') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.1') }}">
+                        <input type="text" class="form-control centro_votacion @error('centro_votacion.1') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.1') }}">
                         @error('centro_votacion.1')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -253,7 +253,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row p-3 bg-light-subtle m-0 member1">
+                <div class="row p-3 bg-light-subtle m-0 member3">
                     <!-- Teléfono -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="num_telefono" class="form-label">Telefono</label>
@@ -273,7 +273,7 @@
                     <!-- Centro de Votacion -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="centro_votacion" class="form-label">Centro de Votacion</label>
-                        <input type="text" class="form-control @error('centro_votacion.2') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.2') }}">
+                        <input type="text" class="form-control centro_votacion @error('centro_votacion.2') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.2') }}">
                         @error('centro_votacion.2')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -314,7 +314,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row p-3 bg-light-subtle m-0 member1">
+                <div class="row p-3 bg-light-subtle m-0 member4">
                     <!-- Teléfono -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="num_telefono" class="form-label">Telefono</label>
@@ -334,7 +334,7 @@
                     <!-- Centro de Votacion -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="centro_votacion" class="form-label">Centro de Votacion</label>
-                        <input type="text" class="form-control @error('centro_votacion.3') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.3') }}">
+                        <input type="text" class="form-control centro_votacion @error('centro_votacion.3') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.3') }}">
                         @error('centro_votacion.3')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -375,7 +375,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row p-3 bg-light-subtle m-0 member1">
+                <div class="row p-3 bg-light-subtle m-0 member5">
                     <!-- Teléfono -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="num_telefono" class="form-label">Telefono</label>
@@ -395,7 +395,7 @@
                     <!-- Centro de Votacion -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="centro_votacion" class="form-label">Centro de Votacion</label>
-                        <input type="text" class="form-control @error('centro_votacion.4') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.4') }}">
+                        <input type="text" class="form-control centro_votacion @error('centro_votacion.4') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.4') }}">
                         @error('centro_votacion.4')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -436,7 +436,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row p-3 bg-light-subtle m-0 member1">
+                <div class="row p-3 bg-light-subtle m-0 member6">
                     <!-- Teléfono -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="num_telefono" class="form-label">Telefono</label>
@@ -456,7 +456,7 @@
                     <!-- Centro de Votacion -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="centro_votacion" class="form-label">Centro de Votacion</label>
-                        <input type="text" class="form-control @error('centro_votacion.5') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.5') }}">
+                        <input type="text" class="form-control centro_votacion @error('centro_votacion.5') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.5') }}">
                         @error('centro_votacion.5')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -497,7 +497,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row p-3 bg-light-subtle m-0 member1">
+                <div class="row p-3 bg-light-subtle m-0 member7">
                     <!-- Teléfono -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="num_telefono" class="form-label">Telefono</label>
@@ -517,7 +517,7 @@
                     <!-- Centro de Votacion -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="centro_votacion" class="form-label">Centro de Votacion</label>
-                        <input type="text" class="form-control @error('centro_votacion.6') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.6') }}">
+                        <input type="text" class="form-control centro_votacion @error('centro_votacion.6') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.6') }}">
                         @error('centro_votacion.6')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -558,7 +558,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row p-3 bg-light-subtle m-0 member1">
+                <div class="row p-3 bg-light-subtle m-0 member8">
                     <!-- Teléfono -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="num_telefono" class="form-label">Telefono</label>
@@ -578,7 +578,7 @@
                     <!-- Centro de Votacion -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="centro_votacion" class="form-label">Centro de Votacion</label>
-                        <input type="text" class="form-control @error('centro_votacion.7') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.7') }}">
+                        <input type="text" class="form-control centro_votacion @error('centro_votacion.7') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.7') }}">
                         @error('centro_votacion.7')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -592,7 +592,7 @@
                         <input type="hidden" name="onexten_id[]">
                     </div>
                 </div>
-                <div class="row p-3 bg-light-subtle m-0 member8">
+                <div class="row p-3 bg-light-subtle m-0 member9">
                     <!-- Cedula -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="cedula" class="form-label">Cedula</label>
@@ -619,7 +619,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row p-3 bg-light-subtle m-0 member1">
+                <div class="row p-3 bg-light-subtle m-0 member9">
                     <!-- Teléfono -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="num_telefono" class="form-label">Telefono</label>
@@ -639,7 +639,7 @@
                     <!-- Centro de Votacion -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="centro_votacion" class="form-label">Centro de Votacion</label>
-                        <input type="text" class="form-control @error('centro_votacion.8') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.8') }}">
+                        <input type="text" class="form-control centro_votacion @error('centro_votacion.8') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.8') }}">
                         @error('centro_votacion.8')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -653,7 +653,7 @@
                         <input type="hidden" name="onexten_id[]">
                     </div>
                 </div>
-                <div class="row p-3 bg-light-subtle m-0 member8">
+                <div class="row p-3 bg-light-subtle m-0 member10">
                     <!-- Cedula -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="cedula" class="form-label">Cedula</label>
@@ -680,7 +680,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row p-3 bg-light-subtle m-0 member1">
+                <div class="row p-3 bg-light-subtle m-0 member10">
                     <!-- Teléfono -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="num_telefono" class="form-label">Telefono</label>
@@ -700,7 +700,7 @@
                     <!-- Centro de Votacion -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="centro_votacion" class="form-label">Centro de Votacion</label>
-                        <input type="text" class="form-control @error('centro_votacion.9') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.9') }}">
+                        <input type="text" class="form-control centro_votacion @error('centro_votacion.9') is-invalid @enderror" name="centro_votacion[]" value="{{ old('centro_votacion.9') }}">
                         @error('centro_votacion.9')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -742,6 +742,9 @@
         window.urlFetchScopeData = "{{ route('members.getScopeInfo')}}";
         window.geograficos = @json($geograficos);
         window.responseData = null;
+        // window.centrosVotaciones @json($centros_votaciones);
+        // console.log(window.centrosVotaciones);
+
         
         
     </script>

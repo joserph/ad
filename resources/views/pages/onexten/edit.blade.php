@@ -99,7 +99,7 @@
                     @enderror
                 </div>
 
-                @foreach ($onextenItem as $item)
+                @foreach ($onextenItem as $key => $item)
 
                 {{-- PRIMER MIEMBRO --}}
                 <div class="row p-3 m-0">
@@ -110,12 +110,12 @@
                     </div>
                 </div>
 
-                <div class="row p-3 bg-light-subtle m-0 member1">
+                <div class="row p-3 bg-light-subtle m-0 member{{ $item->item }}">
                     <!-- Cedula -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="cedula" class="form-label">Cedula</label>
-                        <input type="text" class="form-control cedula @error('cedula.{{ $item->id }}') is-invalid @enderror" data-count="1" name="cedula[]" value="{{ $item->cedula }}">
-                        @error('cedula.{{ $item->id }}')
+                        <input type="text" class="form-control cedula @error('cedula.{{ $key }}') is-invalid @enderror" data-count="{{ $item->item }}" name="cedula[]" value="{{ $item->cedula }}">
+                        @error('cedula.{{ $key }}')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -123,8 +123,8 @@
                     <!-- Nombre -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="nombre" class="form-label">Nombres</label>
-                        <input type="text" class="form-control nombre @error('nombre.{{ $item->id }}') is-invalid @enderror" name="nombre[]" value="{{ $item->nombre }}">
-                        @error('nombre.{{ $item->id }}')
+                        <input type="text" class="form-control nombre @error('nombre.{{ $key }}') is-invalid @enderror" name="nombre[]" value="{{ $item->nombre }}">
+                        @error('nombre.{{ $key }}')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -138,7 +138,7 @@
                     </div>
                 </div>
 
-                <div class="row p-3 bg-light-subtle m-0 member1">
+                <div class="row p-3 bg-light-subtle m-0 member{{ $item->item }}">
                     <!-- Teléfono -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="num_telefono" class="form-label">Telefono</label>
@@ -158,7 +158,7 @@
                     <!-- Centro de Votacion -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="centro_votacion" class="form-label">Centro de Votacion</label>
-                        <input type="text" class="form-control @error('centro_votacion.{{ $item->id }}') is-invalid @enderror" name="centro_votacion[]" value="{{ $item->centro_votacion }}">
+                        <input type="text" class="form-control centro_votacion @error('centro_votacion.{{ $item->id }}') is-invalid @enderror" name="centro_votacion[]" value="{{ $item->centro_votacion }}">
                         @error('centro_votacion.{{ $item->id }}')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -216,5 +216,5 @@
     <script src="{{ asset('assets/libs/select2/js/forms/select2.init.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/forms/datepicker-init.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/members/members-register.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/members/onexten-register.js') }}"></script>
 @endsection

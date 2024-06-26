@@ -6,6 +6,7 @@ use App\Models\Geograficos;
 use App\Models\Seccional;
 use Illuminate\Http\Request;
 use App\Http\Requests\OnextenRequest;
+use App\Models\CentrosVotacion;
 use App\Models\Onexten;
 use App\Models\OnextenItem;
 use Yajra\DataTables\DataTables;
@@ -73,6 +74,15 @@ class OnextenController extends Controller
         }
     }
 
+    public function centro_votacion($id)
+    {
+        // return 'Hola centros';
+        $centro = CentrosVotacion::where('centro_nuevo', $id)->first();
+        // dd($centro);
+        return response(json_encode($centro), 200)->header('Content-type', 'text/plain');
+        // return response()->json(['success' => true, 'info' => $centro], 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -82,10 +92,12 @@ class OnextenController extends Controller
     {
         $seccionales = Seccional::all();
         $geograficos = Geograficos::all();
-
+        $centros_votaciones = CentrosVotacion::select('id', 'cod_centro', 'nombre_centro')->get();
+        //dd($centros_votaciones);
         return view('pages.onexten.create', compact(
             'seccionales',
-            'geograficos'
+            'geograficos',
+            'centros_votaciones'
         ));
     }
 

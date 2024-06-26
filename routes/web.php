@@ -80,6 +80,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.', 'co
 });
 
 Route::resource('/onexten', OnextenController::class)->names('onexten');
+Route::get('/centro_votacion/{id}', [OnextenController::class, 'centro_votacion'])->name('centro_votacion');
 // Route::post('/ci', 'OnextenController@searchDoc')->name('searchDoc');
 // Route::get('/list', 'OnextenController@list')->name('list');
 

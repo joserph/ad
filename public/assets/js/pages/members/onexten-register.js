@@ -1,9 +1,11 @@
+// const { method } = require("lodash");
+
 $(document).ready(function () {
     
     const selectSeccional = $('#seccional');
     const selectMunicipio = $('#municipio');
     const selectParroquia = $('#parroquia');
-    console.log(responseData);
+    // console.log(centros_votaciones);
     
     const getUniqueOptions = (data, key) => {
         return [...new Map(data.map(item => [item[key], item])).values()];
@@ -121,11 +123,34 @@ $(document).ready(function () {
                             fecha_nacimiento = data.info[7],
                             genero = data.info[6] == 'M' ? 'hombre' : 'mujer',
                             fecha_formateada = fecha_nacimiento.replace(/-/g, '/');
-
-                            $(`.member${currentCiInp} .nombre`).val(nombres);
-                            $(`.member${currentCiInp} .apellido`).val(apellidos);
-                            $(`.member${currentCiInp} .genero`).val(genero).trigger('change');
-                            $(`.member${currentCiInp} .fecha`).val(fecha_formateada);
+                            cod_centro_v = data.info[11];
+                            // BUSCAR CENTRO DE VOTACION
+                            
+                            urlCentro = '/centro_votacion/'+ cod_centro_v;
+                            console.log(urlCentro);
+                            var centro = '';
+                            $.ajax({
+                                url: urlCentro,
+                                method: 'GET',
+                                data: {
+                                    ci: ci
+                                }
+                            }).done(function(res){
+                                centro = JSON.parse(res);
+                                $(`.member${currentCiInp} .nombre`).val(nombres);
+                                $(`.member${currentCiInp} .apellido`).val(apellidos);
+                                $(`.member${currentCiInp} .genero`).val(genero).trigger('change');
+                                $(`.member${currentCiInp} .fecha`).val(fecha_formateada);
+                                if(centro.nombre_centro){
+                                    $(`.member${currentCiInp} .centro_votacion`).val(centro.nombre_centro);
+                                }else{
+                                    $(`.member${currentCiInp} .centro_votacion`).val('NO TIENE CENTRO DE VOTACION');
+                                }
+                                
+                            })
+                            // console.log(centro);
+                            
+                            
                         }
                     } else {
                         toastr.error(data.error, "Ups!", {
