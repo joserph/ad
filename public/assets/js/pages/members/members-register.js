@@ -22,7 +22,7 @@ $(document).ready(function () {
     const selectSeccional = $('#seccional');
     const selectMunicipio = $('#municipio');
     const selectParroquia = $('#parroquia');
-    console.log(responseData);
+    // console.log(responseData);
     /*const selectBuro = $('#buro');
     const opcionesBuro = JSON.parse(window.opcionesBuro);
     const opcionesBuroSecFemenina = JSON.parse(window.opcionesBuroSecFemenina);
@@ -34,13 +34,13 @@ $(document).ready(function () {
     const opcionesBuroSecSindical = JSON.parse(window.opcionesBuroSecSindical);
     const opcionesBuroSecProfesionalesYTecnicos = JSON.parse(window.opcionesBuroSecProfesionalesYTecnicos);*/
 
-    //console.log($('#cargo').val());
+    // console.log($('#cargo').val());
 
     if($('#cargo').val() !== ''){
         let cargo = $('#cargo').val();
-        //console.log($('#cargo').val() + 'lalalalala');
+        // console.log($('#cargo').val() + 'lalalalala');
         if(cargo == 0){
-            console.log('agraria - ' + $('#buro_sec_agraria').val());
+            // console.log('agraria - ' + $('#buro_sec_agraria').val());
             $('#buro_sec_agraria').parent().removeClass('d-none');
             $('#buro_sec_agraria').prop('disabled', false).trigger('change');
         }else if(cargo == 1){

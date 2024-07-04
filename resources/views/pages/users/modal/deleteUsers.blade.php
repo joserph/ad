@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-dialog-scrollable modal-sm">
     <div class="modal-content">
         <div class="modal-body p-4">
-            <form class="text-center" action="{{ route('users.delete', $users) }}">
+            <form class="text-center" action="{{ route('users.destroy', $users) }}">
                 <i class="ti ti-alert-circle text-danger display-3"></i>
                 <h4 class="mt-2 fw-bold text-danger">Confirmación de Eliminación</h4>
                 <p class="mt-3">

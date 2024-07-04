@@ -31,7 +31,15 @@
         </div>
         </div>
     </div>
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="card">
         <div class="card-body position-relative">
             {{-- <h5 class="card-title fw-semibold mb-4">Registrar Miembro</h5> --}}

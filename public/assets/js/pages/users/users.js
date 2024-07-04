@@ -2,7 +2,7 @@ $(document).ready(function () {
     let table = $('#table-users').DataTable({
         processing: true,
         serverSide: true,
-        pageLength: 25,
+        pageLength: 10,
         lengthMenu: [10, 25, 50, 100],
         ajax: urlUsers,
         columns: [
@@ -36,4 +36,15 @@ $(document).ready(function () {
             $('#table-users_length, #table-users_filter').wrapAll('<div class="d-flex align-items-center justify-content-between"></div>');
         },
     });
+
+    console.log('algo');
+    
+    $('.delete').on('click',function(e, data){
+        alert('asdfsdfsd');
+        if(!data){
+          handleDelete(e, 1);
+        }else{
+          window.location = $(this).attr('href');
+        }
+      });
 });

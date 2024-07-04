@@ -33,13 +33,16 @@ class UsersUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'correo' => [
-                'required',
-                'email',
-                Rule::unique('members', 'correo')->ignore($this->user()->id),
-                Rule::unique('users', 'email')->ignore($this->route('users')->id),
-            ],
-        ];
+        
+        $user = $this->route()->parameters('user');
+        //dd($user['user']);
+        if($user)
+        {
+            return [
+                'name'      => 'required',
+                'email'     => 'required|email|unique:users,email,' . $user['user'],
+                'password'  => 'same:password_confirmation',
+            ];
+        }
     }
 }

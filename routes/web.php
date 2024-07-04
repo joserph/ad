@@ -1,7 +1,13 @@
 <?php
 
+use App\Http\Controllers\MemberMunicipalController;
+use App\Http\Controllers\MemberParroquialController;
+use App\Http\Controllers\MemberSeccionalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OnextenController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,21 +72,36 @@ Route::group(['middleware' => 'auth', 'prefix' => 'notices', 'as' => 'notices.',
     Route::post('/delete-attach/{noticesFile}', 'deleteAttachment')->name('deleteAttachment');
 });
 
-Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.', 'controller' => App\Http\Controllers\UsersController::class], function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::get('/edit/{users}', 'edit')->name('edit');
-    Route::get('/modal_delete/{users}', 'modal_delete')->name('modalDelete');
-    Route::delete('/delete/{users}', 'destroy')->name('delete');
-    Route::get('/list', 'list')->name('list');
-    Route::post('/store', 'store')->name('store');
-    Route::post('/storeU', 'storeU')->name('storeU');
-    Route::get('/useremail', 'useremail')->name('useremail');
-    Route::put('/update/{users}', 'update')->name('update');
+// Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.', 'controller' => App\Http\Controllers\UsersController::class], function () {
+//     Route::get('/', 'index')->name('index');
+//     Route::get('/create', 'create')->name('create');
+//     Route::get('/edit/{users}', 'edit')->name('edit');
+//     Route::get('/modal_delete/{users}', 'modal_delete')->name('modalDelete');
+//     Route::delete('/delete/{users}', 'destroy')->name('delete');
+//     Route::get('/list', 'list')->name('list');
+//     Route::post('/store', 'store')->name('store');
+//     Route::post('/storeU', 'storeU')->name('storeU');
+//     Route::get('/useremail', 'useremail')->name('useremail');
+//     Route::put('/update/{users}', 'update')->name('update');
+// });
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/users', UserController::class)->names('users');
+    Route::get('/users-list', [UserController::class, 'list'])->name('users.list');
+    Route::get('/users-modal-delete/{users}', [UserController::class, 'modal_delete'])->name('users.modalDelete');
+    Route::resource('/onexten', OnextenController::class)->names('onexten');
+    Route::get('/centro_votacion/{id}', [OnextenController::class, 'centro_votacion'])->name('centro_votacion');
+    Route::resource('/roles', RoleController::class)->names('roles');
+    Route::get('/roles-list', [RoleController::class, 'list'])->name('roles.list');
+    Route::resource('/permissions', PermissionController::class)->names('permissions');
+    Route::get('/permissions-list', [PermissionController::class, 'list'])->name('permissions.list');
+    Route::resource('/members-seccional', MemberSeccionalController::class)->names('members-seccional');
+    Route::get('/member-seccional-list', [MemberSeccionalController::class, 'list'])->name('member-seccional.list');
+    Route::resource('/members-municipal', MemberMunicipalController::class)->names('members-municipal');
+    Route::get('/member-municipal-list', [MemberMunicipalController::class, 'list'])->name('member-municipal.list');
+    Route::resource('/members-parroquial', MemberParroquialController::class)->names('members-parroquial');
+    Route::get('/member-parroquial-list', [MemberParroquialController::class, 'list'])->name('member-parroquial.list');
 });
 
-Route::resource('/onexten', OnextenController::class)->names('onexten');
-Route::get('/centro_votacion/{id}', [OnextenController::class, 'centro_votacion'])->name('centro_votacion');
 // Route::post('/ci', 'OnextenController@searchDoc')->name('searchDoc');
 // Route::get('/list', 'OnextenController@list')->name('list');
 

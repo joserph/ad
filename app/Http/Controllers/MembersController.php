@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use DataTables;
 use App\Models\Comite;
 use App\Models\Members;
 use App\Models\Scope;
@@ -20,10 +19,18 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\MembersUpdateRequest;
-
+use Yajra\DataTables\DataTables;
 
 class MembersController extends Controller
 {
+    // function __construct()
+    // {
+    //     $this->middleware('permission:mostrar-miembros', ['only' => ['index']]);
+    //     $this->middleware('permission:crear-miembro', ['only' => ['create', 'store']]);
+    //     $this->middleware('permission:ver-miembro', ['only' => ['show']]);
+    //     $this->middleware('permission:editar-miembro', ['only' => ['edit', 'update']]);
+    //     $this->middleware('permission:eliminar-miembro', ['only' => ['destroy']]);
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -321,70 +328,133 @@ class MembersController extends Controller
 
     public function list()
     {
-        $model = Members::query()->orderBy('created_at', 'desc');
-
+        $model = Members::where('alcance', 'Nacional')->orderBy('created_at', 'desc')->get();
+        // dd($model);
         $data = DataTables::of($model)
-            ->addColumn('id', function ($row) {
-                return $row->id;
-            })
-            ->addColumn('nombre_completo', function($row) {
+            ->editColumn('nombre_completo', function($row){
                 $nombreC = $row->nombre . " " . $row->apellido;
-                $html = '<div class="d-flex flex-column">' .
+                $nombre_completo = '<div class="d-flex flex-column">' .
                     '<h6 class="mb-0">' . $nombreC . '</h6>' .
                     '<h6 class="fw-bolder mb-0">' . $row->cedula . '</h6>' .
                 '</div>';
-                return $html;
+                return $nombre_completo;
+            })
+            ->editColumn('alcance', function($row){
+                $alcance = '<h5><span class="badge text-bg-success">'. $row->alcance .'</span></h5>';
+                return $alcance;
             })
             ->editColumn('cargo', function($row) {
                 $tipoCargoDescripcion = Positions::getTypesPositions()[$row->tipo_cargo] ?? '';
                 //var_dump($tipoCargoDescripcion);
                 $cargoDescripcion = $row->cargo !== null ? (Positions::getPositions()[$row->cargo] ?? 'No definido') : '';
 
-                $html = '<div class="d-flex flex-column">' .
+                $cargo = '<div class="d-flex flex-column">' .
                     '<small class="fw-bolder">' . $tipoCargoDescripcion . '</small>' .
                     '<small class="fw-bolder">' . $cargoDescripcion . '</small>' .
                 '</div>';
-                return $html;
+                return $cargo;
             })
             ->editColumn('buro', function($row) {
-                $html = '';
-                //var_dump($html);
-                if ($row->cargo == 0) {
-                    $html = Positions::getBuroSecAgraria()[$row->buro];
-                }elseif($row->cargo == 1){
-                    $html = Positions::getBuroSecAsuntosMunicipales()[$row->buro];
-                }elseif($row->cargo == 2){
-                    $html = Positions::getBuroSecCultura()[$row->buro];
-                }elseif($row->cargo == 3){
-                    $html = Positions::getBuroSecEducacion()[$row->buro];
-                }elseif($row->cargo == 4){
-                    $html = Positions::getBuroSecFemenina()[$row->buro];
-                }elseif($row->cargo == 5){
-                    $html = Positions::getBuroSecJuvenil()[$row->buro];
-                }elseif($row->cargo == 6){
-                    $html = Positions::getBuroSecSindical()[$row->buro];
-                }elseif($row->cargo == 7){
-                    $html = Positions::getBuroSecProfesionalesYTecnicos()[$row->buro];
+                //var_dump($buro);
+                if($row->tipo_cargo == 5){
+                    if ($row->cargo == 0) {
+                        $buro = Positions::getBuroSecAgraria()[$row->buro];
+                    }elseif($row->cargo == 1){
+                        $buro = Positions::getBuroSecAsuntosMunicipales()[$row->buro];
+                    }elseif($row->cargo == 2){
+                        $buro = Positions::getBuroSecCultura()[$row->buro];
+                    }elseif($row->cargo == 3){
+                        $buro = Positions::getBuroSecEducacion()[$row->buro];
+                    }elseif($row->cargo == 4){
+                        $buro = Positions::getBuroSecFemenina()[$row->buro];
+                    }elseif($row->cargo == 5){
+                        $buro = Positions::getBuroSecJuvenil()[$row->buro];
+                    }elseif($row->cargo == 6){
+                        $buro = Positions::getBuroSecSindical()[$row->buro];
+                    }elseif($row->cargo == 7){
+                        $buro = Positions::getBuroSecProfesionalesYTecnicos()[$row->buro];
+                    }else{
+                        $buro = '<small class="fw-bolder">No asignado</small>';
+                    }
                 }else{
-                    $html = '<small class="fw-bolder">No asignado</small>';
+                    $buro = '<small class="fw-bolder">No asignado</small>';
                 }
-                return $html;
+                
+                return $buro;
             })
-            ->addColumn('action', function($row){
-                return '<div class="d-flex">
-                    <a href='. route('members.edit', $row) .' class="btn btn-icon btn-info btn-sm me-1">
-                        <i class="ti ti-pencil"></i>
-                    </a>
-                    <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('members.modalDelete', $row) .'">
-                        <i class="ti ti-trash"></i>
-                    </button>
-                </div>';
-            })
-            ->rawColumns(['nombre_completo', 'cargo', 'buro', 'action'])
+            ->addColumn('action', 'pages.members.partials.btns')
+            ->rawColumns(['nombre_completo', 'alcance', 'cargo', 'buro', 'action'])
             ->toJson();
 
         return $data;
     }
+
+    // public function list()
+    // {
+    //     $model = Members::where('alcance', 'Seccional')->orderBy('created_at', 'desc');
+
+    //     $data = DataTables::of($model)
+    //         ->addColumn('id', function ($row) {
+    //             return $row->id;
+    //         })
+    //         ->addColumn('nombre_completo', function($row) {
+    //             $nombreC = $row->nombre . " " . $row->apellido;
+    //             $html = '<div class="d-flex flex-column">' .
+    //                 '<h6 class="mb-0">' . $nombreC . '</h6>' .
+    //                 '<h6 class="fw-bolder mb-0">' . $row->cedula . '</h6>' .
+    //             '</div>';
+    //             return $html;
+    //         })
+    //         ->editColumn('cargo', function($row) {
+    //             $tipoCargoDescripcion = Positions::getTypesPositions()[$row->tipo_cargo] ?? '';
+    //             //var_dump($tipoCargoDescripcion);
+    //             $cargoDescripcion = $row->cargo !== null ? (Positions::getPositions()[$row->cargo] ?? 'No definido') : '';
+
+    //             $html = '<div class="d-flex flex-column">' .
+    //                 '<small class="fw-bolder">' . $tipoCargoDescripcion . '</small>' .
+    //                 '<small class="fw-bolder">' . $cargoDescripcion . '</small>' .
+    //             '</div>';
+    //             return $html;
+    //         })
+    //         ->editColumn('buro', function($row) {
+    //             $html = '';
+    //             //var_dump($html);
+    //             if ($row->cargo == 0) {
+    //                 $html = Positions::getBuroSecAgraria()[$row->buro];
+    //             }elseif($row->cargo == 1){
+    //                 $html = Positions::getBuroSecAsuntosMunicipales()[$row->buro];
+    //             }elseif($row->cargo == 2){
+    //                 $html = Positions::getBuroSecCultura()[$row->buro];
+    //             }elseif($row->cargo == 3){
+    //                 $html = Positions::getBuroSecEducacion()[$row->buro];
+    //             }elseif($row->cargo == 4){
+    //                 $html = Positions::getBuroSecFemenina()[$row->buro];
+    //             }elseif($row->cargo == 5){
+    //                 $html = Positions::getBuroSecJuvenil()[$row->buro];
+    //             }elseif($row->cargo == 6){
+    //                 $html = Positions::getBuroSecSindical()[$row->buro];
+    //             }elseif($row->cargo == 7){
+    //                 $html = Positions::getBuroSecProfesionalesYTecnicos()[$row->buro];
+    //             }else{
+    //                 $html = '<small class="fw-bolder">No asignado</small>';
+    //             }
+    //             return $html;
+    //         })
+    //         ->addColumn('action', function($row){
+    //             return '<div class="d-flex">
+    //                 <a href='. route('members.edit', $row) .' class="btn btn-icon btn-info btn-sm me-1">
+    //                     <i class="ti ti-pencil"></i>
+    //                 </a>
+    //                 <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('members.modalDelete', $row) .'">
+    //                     <i class="ti ti-trash"></i>
+    //                 </button>
+    //             </div>';
+    //         })
+    //         ->rawColumns(['nombre_completo', 'cargo', 'buro', 'action'])
+    //         ->toJson();
+
+    //     return $data;
+    // }
 
     /**
      * Display the specified resource.

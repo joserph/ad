@@ -30,13 +30,42 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title fw-semibold mb-4">Actualizar Usuario</h5>
-            <form class="row" method="POST" action="{{ route('users.update', $users) }}">
+            <form class="row" method="POST" action="{{ route('users.update', $user) }}">
                 @csrf
                 @method('PUT')
                 <div class="mb-3 col-md-6 col-lg-4">
+                    <label for="" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="name" id="" value="{{ $user->name }}" required>
+                    @error('name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3 col-md-6 col-lg-4">
                     <label for="" class="form-label">Email</label>
-                    <input type="email" class="form-control" name="correo" id="" value="{{ $users->email }}" required>
-                    @error('correo')
+                    <input type="email" class="form-control" name="email" id="" value="{{ $user->email }}" required>
+                    @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3 col-md-6 col-lg-4">
+                    <label for="" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" name="password" id="" value="{{ old('password') }}">
+                    @error('password')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3 col-md-6 col-lg-4">
+                    <label for="" class="form-label">Confirmar Contraseña</label>
+                    <input type="password" class="form-control" name="password_confirmation" id="" value="{{ old('password_confirmation') }}">
+                    @error('password_confirmation')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3 col-md-6 col-lg-4">
+                    {{ Form::label('roles', 'Role', ['class' => 'form-label']) }}
+                    {{-- {{ Form::select('roles', $roles, $roles, ['class' => 'form-select', 'placeholder' => 'Seleccione role']) }} --}}
+                    {{ Form::select('roles', $roles, $userRole, ['class' => 'form-select', 'placeholder' => 'Seleccione role']) }}
+                    @error('roles')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

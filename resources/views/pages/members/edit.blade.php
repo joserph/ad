@@ -38,6 +38,7 @@
             <form class="row" method="POST" action="{{ route('members.update', $members->id) }}">
                 @csrf
                 @method('PUT')
+                <input type="hidden" name="id" value="{{ $members->id }}">
                 <!-- Cedula -->
                 <div class="mb-3 col-md-6 col-lg-4">
                     <label for="cedula" class="form-label">Cedula</label>
@@ -136,18 +137,19 @@
                 <!-- Alcance -->
                 <div class="mb-3 col-md-6 col-lg-4">
                     <label for="alcance" class="form-label">Alcance</label>
-                    <select class="form-control select2 @error('alcance') is-invalid @enderror" id="alcance" name="alcance">
+                    <input type="text" name="alcance" id="alcance" class="form-control" value="{{ $members->alcance }}" readonly>
+                    {{-- <select class="form-control select2 @error('alcance') is-invalid @enderror" id="alcance" name="alcance">
                         <option value="">Seleccionar</option>
                         @foreach ($optionsScope as $value => $label)
                             <option value="{{ $value }}" @selected(old('alcance', $members->alcance) == $value)>{{ $label }}</option>";
                         @endforeach
-                    </select>
+                    </select> --}}
                     @error('alcance')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <!-- Seccional -->
-                <div class="mb-3 col-md-6 col-lg-4 @if($members->seccional == '') d-none @endif">
+                {{-- <div class="mb-3 col-md-6 col-lg-4 @if($members->seccional == '') d-none @endif">
                     <label for="seccional" class="form-label">Seccional</label>
                     <select class="form-control select2 @error('seccional') is-invalid @enderror" id="seccional" name="seccional">
                         <option value="">Seleccionar Seccional</option>
@@ -161,9 +163,9 @@
                     @error('seccional')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
                 <!-- Municipio -->
-                <div class="mb-3 col-md-6 col-lg-4 @if($members->municipio == '') d-none @endif">
+                {{-- <div class="mb-3 col-md-6 col-lg-4 @if($members->municipio == '') d-none @endif">
                     <label for="municipio" class="form-label">Municipio</label>
                     <select class="form-control select2 @error('municipio') is-invalid @enderror" id="municipio" name="municipio">
                         <option value="">Seleccionar Municipio</option>
@@ -171,9 +173,9 @@
                     @error('municipio')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
                 <!-- Parroquia -->
-                <div class="mb-3 col-md-6 col-lg-4 @if($members->parroquia == '') d-none @endif"">
+                {{-- <div class="mb-3 col-md-6 col-lg-4 @if($members->parroquia == '') d-none @endif"">
                     <label for="parroquia" class="form-label">Parroquia</label>
                     <select class="form-control select2 @error('parroquia') is-invalid @enderror" id="parroquia" name="parroquia" value="{{ old('parroquia') }}">
                         <option value="">Seleccionar</option>
@@ -181,7 +183,7 @@
                     @error('parroquia')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
                 <!-- Tipo de Cargo -->
                 <div class="mb-3 col-md-6 col-lg-4">
                     <label for="tipo_cargo" class="form-label">Tipo de Cargo</label>
@@ -199,13 +201,14 @@
                 <!-- Cargo -->
                 <div class="mb-3 col-md-6 col-lg-4 @if($members->tipo_cargo != 5) d-none @endif">
                     <label for="cargo" class="form-label">Cargos Administrativos</label>
-                    <select class="form-control select2 @error('cargo') is-invalid @enderror"
+                    {{ Form::select('cargo', $optionsPositions, $members->cargo, ['class' => 'form-select select2', 'placeholder' => 'Seleccionar', 'id' => 'cargo']) }}
+                    {{-- <select class="form-control select2 @error('cargo') is-invalid @enderror"
                         id="cargo" name="cargo">
                         <option value="">Seleccionar</option>
                         @foreach ($optionsPositions as $value => $label)
                             <option value="{{ $value }}" @selected(old('cargo', $members->cargo) == $value)>{{ $label }}</option>";
                         @endforeach
-                    </select>
+                    </select> --}}
                     @error('cargo')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

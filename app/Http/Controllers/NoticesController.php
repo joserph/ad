@@ -17,6 +17,14 @@ use Illuminate\Support\Collection;
 
 class NoticesController extends Controller
 {
+    // function __construct()
+    // {
+    //     $this->middleware('permission:mostrar-noticias', ['only' => ['index']]);
+    //     $this->middleware('permission:crear-noticia', ['only' => ['create', 'store']]);
+    //     $this->middleware('permission:ver-noticia', ['only' => ['show']]);
+    //     $this->middleware('permission:editar-noticia', ['only' => ['edit', 'update']]);
+    //     $this->middleware('permission:eliminar-noticia', ['only' => ['destroy']]);
+    // }
     /**
      * Display a listing of the resource.
      *

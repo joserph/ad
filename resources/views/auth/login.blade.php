@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-body">
                         <a href="{{ route('notices.home') }}" class="text-nowrap logo-img text-center d-block w-100">
-                            <img src="{{ asset('assets/images/logos/logo.png') }}" width="180" alt="">
+                            <img src="{{ asset('assets/images/logos/logo-ad-b.png') }}" width="180" alt="">
                         </a>
                         <p class="text-center">Acción Democrática</p>
                         <form method="POST" action="{{ route('login') }}">

@@ -33,7 +33,9 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'correo' => 'required|email|unique:members,correo|unique:users,email',
+            'email' => 'required|email|unique:users,email',
+            'name' => 'required',
+            'password' => 'required|same:password_confirmation'
         ];
     }
 }

@@ -14,15 +14,15 @@
             <div class="card-body px-4 py-3" bis_skin_checked="1">
               <div class="row align-items-center" bis_skin_checked="1">
                 <div class="col-9" bis_skin_checked="1">
-                  <h4 class="fw-semibold mb-8">Listado de Miembros</h4>
+                  <h4 class="fw-semibold mb-8">Comite Ejecutivo Nacionales</h4>
                   <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
                             <a class="text-muted text-decoration-none" href="{{ route('notices.home') }}">Inicio</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a class="text-muted text-decoration-none" href="{{ route('members.index') }}">Miembros</a>
-                        </li>
+                        {{-- <li class="breadcrumb-item">
+                            <a class="text-muted text-decoration-none" href="{{ route('members.index') }}">Comite Ejecutivo Nacionales</a>
+                        </li> --}}
                         <li class="breadcrumb-item" aria-current="page">Listado</li>
                     </ol>
                   </nav>
@@ -33,6 +33,9 @@
                   </div>
                 </div>
               </div>
+              <a class="btn btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar" href="{{ route('members.create') }}">
+                <i class="ti ti-circle-plus"></i> Agregar
+            </a>
             </div>
         </div>
 
@@ -41,12 +44,9 @@
                 <thead>
                     <!-- start row -->
                     <tr>
-                        <th></th>
-                        <th>Nombre Completo</th>
-                        {{-- <th>CI</th> --}}
+                        <th>Nombre</th>
+                        <th>Alcance</th>
                         <th>Telefono</th>
-                        <th>Correo</th>
-                        <th>F. Nacimiento</th>
                         <th>Cargo</th>
                         <th>Buró</th>
                         <th>Acciones</th>
@@ -59,12 +59,9 @@
                 <tfoot>
                     <!-- start row -->
                     <tr>
-                        <th></th>
-                        <th>Nombre Completo</th>
-                        {{-- <th>CI</th> --}}
+                        <th>Nombre</th>
+                        <th>Alcance</th>
                         <th>Telefono</th>
-                        <th>Correo</th>
-                        <th>F. Nacimiento</th>
                         <th>Cargo</th>
                         <th>Buró</th>
                         <th>Acciones</th>
@@ -85,26 +82,27 @@
         let table = $('#datatable-members').DataTable({
             processing: true,
             serverSide: true,
-            pageLength: 25,
+            pageLength: 10,
             lengthMenu: [10, 25, 50, 100],
             ajax: '{{ route("members.list") }}',
             columns: [
-                {
-                    data: "id",
-                    render: function (data, type, row) {
-                        return '<input type="checkbox" class="select-member form-check-input" value="' + data + '">';
-                    }
-                },
-                { data: 'nombre_completo', name: 'nombre_completo' },
+                // {
+                //     data: "id",
+                //     render: function (data, type, row) {
+                //         return '<input type="checkbox" class="select-member form-check-input" value="' + data + '">';
+                //     }
+                // },
+                { data: 'nombre_completo'},
                 // { data: 'apellido', name: 'apellido' },
                 // { data: 'cedula', name: 'cedula' },
-                { data: 'telefono', name: 'telefono' },
-                { data: 'correo', name: 'correo' },
-                { data: 'fecha_nacimiento', name: 'fecha_nacimiento' },
-                { data: 'cargo', name: 'cargo' },
+                { data: 'alcance'},
+                { data: 'telefono'},
+                // { data: 'correo'},
+                // { data: 'fecha_nacimiento'},
+                { data: 'cargo'},
                 // { data: 'tipo_cargo', name: 'tipo_cargo' },
-                { data: 'buro', name: 'buro' },
-                { data: 'action', name: 'action', orderable: false, searchable: false },
+                { data: 'buro'},
+                { data: 'action', orderable: false, searchable: false },
             ],
             language: {
                 processing:     "Procesando...",

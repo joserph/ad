@@ -19,6 +19,14 @@ use Illuminate\Support\Facades\DB;
 
 class ComiteLocalController extends Controller
 {
+    // function __construct()
+    // {
+    //     $this->middleware('permission:mostrar-comite', ['only' => ['index']]);
+    //     $this->middleware('permission:crear-comite', ['only' => ['create', 'store']]);
+    //     $this->middleware('permission:ver-comite', ['only' => ['show']]);
+    //     $this->middleware('permission:editar-comite', ['only' => ['edit', 'update']]);
+    //     $this->middleware('permission:eliminar-comite', ['only' => ['destroy']]);
+    // }
     /**
      * Display a listing of the resource.
      *

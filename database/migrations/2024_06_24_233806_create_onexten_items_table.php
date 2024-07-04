@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('item')->nullable();
-            $table->string('cedula')->nullable();
+            $table->string('cedula')->nullable()->unique();
             $table->string('nombre')->nullable();
             $table->string('apellido')->nullable();
             $table->string('num_telefono')->nullable();

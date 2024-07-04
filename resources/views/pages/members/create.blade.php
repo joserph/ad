@@ -10,14 +10,14 @@
         <div class="card-body px-4 py-3" bis_skin_checked="1">
         <div class="row align-items-center" bis_skin_checked="1">
             <div class="col-9" bis_skin_checked="1">
-            <h4 class="fw-semibold mb-8">@if($members->id) Editar Miembro @else Registrar Miembros @endif</h4>
+            <h4 class="fw-semibold mb-8">@if($members->id) Editar Miembro @else Agregar Comite Ejecutivo Nacional @endif</h4>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a class="text-muted text-decoration-none" href="{{ route('notices.home') }}">Inicio</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a class="text-muted text-decoration-none" href="{{ route('members.index') }}">Miembros</a>
+                        <a class="text-muted text-decoration-none" href="{{ route('members.index') }}">Comite Ejecutivo Nacionales</a>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">@if($members->id) Editar @else Registrar @endif</li>
                 </ol>
@@ -135,18 +135,19 @@
                 <!-- Alcance -->
                 <div class="mb-3 col-md-6 col-lg-4">
                     <label for="alcance" class="form-label">Alcance</label>
-                    <select class="form-control select2 @error('alcance') is-invalid @enderror" id="alcance" name="alcance">
+                    <input type="text" name="alcance" id="alcance" class="form-control" value="{{ $optionsScope['nacional'] }}" readonly>
+                    {{-- <select class="form-control select2 @error('alcance') is-invalid @enderror" id="alcance" name="alcance">
                         <option value="">Seleccionar</option>
                         @foreach ($optionsScope as $value => $label)
                             <option value="{{ $value }}" {{ old('alcance') == $value ? 'selected' : '' }}>{{ $label }}</option>";
                         @endforeach
-                    </select>
+                    </select> --}}
                     @error('alcance')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <!-- Seccional -->
-                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                {{-- <div class="mb-3 col-md-6 col-lg-4 d-none">
                     <label for="seccional" class="form-label">Seccional</label>
                     <select class="form-control select2 @error('seccional') is-invalid @enderror" id="seccional" name="seccional">
                         <option value="">Seleccionar</option>
@@ -160,9 +161,9 @@
                     @error('seccional')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
                 <!-- Municipio -->
-                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                {{-- <div class="mb-3 col-md-6 col-lg-4 d-none">
                     <label for="municipio" class="form-label">Municipio</label>
                     <select class="form-control select2 @error('municipio') is-invalid @enderror" id="municipio" name="municipio">
                         <option value="">Seleccionar</option>
@@ -170,9 +171,9 @@
                     @error('municipio')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
                 <!-- Parroquia -->
-                <div class="mb-3 col-md-6 col-lg-4 d-none">
+                {{-- <div class="mb-3 col-md-6 col-lg-4 d-none">
                     <label for="parroquia" class="form-label">Parroquia</label>
                     <select class="form-control select2 @error('parroquia') is-invalid @enderror" id="parroquia" name="parroquia" value="{{ old('parroquia') }}">
                         <option value="">Seleccionar</option>
@@ -180,7 +181,7 @@
                     @error('parroquia')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
                 <!-- Tipo de Cargo -->
                 <div class="mb-3 col-md-6 col-lg-4">
                     <label for="tipo_cargo" class="form-label">Tipo de Cargo</label>

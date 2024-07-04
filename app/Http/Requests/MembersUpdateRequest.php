@@ -51,15 +51,16 @@ class MembersUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->id);
         return [
             'seccional' => 'nullable|exists:geograficos,estado',
             'municipio' => 'nullable|exists:geograficos,municipio',
             'parroquia' => 'nullable|exists:geograficos,parroquia',
-            'cedula' => 'required|unique:members,cedula,' . $this->members,
+            'cedula' => 'required|unique:members,cedula,' . $this->id,
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
             'telefono' => 'required|nullable|numeric',
-            'correo' => 'required|email|unique:members,correo,' . $this->members,
+            'correo' => 'required|email|unique:members,correo,' . $this->id,
             'fecha_nacimiento' => 'required|date_format:Y/m/d',
             'profesion' => 'nullable|string|max:255',
             'red_social' => 'nullable|string|max:255',

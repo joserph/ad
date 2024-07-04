@@ -4,7 +4,7 @@
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center w-100">
                 <a href="{{ route('notices.home') }}" class="text-nowrap logo-img">
-                    <img src="{{ asset('assets/images/logos/logo.png') }}" width="50" alt="" />
+                    <img src="{{ asset('assets/images/logos/logo-ad-b.png') }}" width="50" alt="" />
                 </a>
                 <div class="d-flex align-items-center justify-content-between ms-3 w-100">
                     <div class="box">
@@ -64,17 +64,41 @@
                         <span>
                             <i class="ti ti-list-details"></i>
                         </span>
-                        <span class="hide-menu">Listado de Miembros</span>
+                        <span class="hide-menu">Comt. Ejec. Nacionales</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::currentRouteName() == 'members-seccional.index' ? 'active' : '' }}" href="{{ route('members-seccional.index') }}">
+                        <span>
+                            <i class="ti ti-list-details"></i>
+                        </span>
+                        <span class="hide-menu">Comt. Ejec. Seccional</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::currentRouteName() == 'members-municipal.index' ? 'active' : '' }}" href="{{ route('members-municipal.index') }}">
+                        <span>
+                            <i class="ti ti-list-details"></i>
+                        </span>
+                        <span class="hide-menu">Comt. Ejec. Municipal</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::currentRouteName() == 'members-parroquial.index' ? 'active' : '' }}" href="{{ route('members-parroquial.index') }}">
+                        <span>
+                            <i class="ti ti-list-details"></i>
+                        </span>
+                        <span class="hide-menu">Comt. Ejec. Parroquial</span>
+                    </a>
+                </li>
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'members.create' ? 'active' : '' }}" href="{{ route('members.create') }}">
                         <span>
                             <i class="ti ti-circle-plus"></i>
                         </span>
                         <span class="hide-menu">Registrar Miembros</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'members.uploads' ? 'active' : '' }}" href="{{ route('members.uploads') }}">
                         <span>
@@ -167,6 +191,38 @@
                         <span class="hide-menu">Registrar</span>
                     </a>
                 </li>
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Roles</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::currentRouteName() == 'roles.index' ? 'active' : '' }}" href="{{ route('roles.index') }}">
+                        <span>
+                            <i class="ti ti-list-details"></i>
+                        </span>
+                        <span class="hide-menu">Listado</span>
+                    </a>
+                </li>
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Permisos</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::currentRouteName() == 'permissions.index' ? 'active' : '' }}" href="{{ route('permissions.index') }}">
+                        <span>
+                            <i class="ti ti-list-details"></i>
+                        </span>
+                        <span class="hide-menu">Listado</span>
+                    </a>
+                </li>
+                {{-- <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::currentRouteName() == 'roles.create' ? 'active' : '' }}" href="{{ route('roles.create') }}">
+                        <span>
+                            <i class="ti ti-circle-plus"></i>
+                        </span>
+                        <span class="hide-menu">Registrar</span>
+                    </a>
+                </li> --}}
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

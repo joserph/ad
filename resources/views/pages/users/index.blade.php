@@ -56,8 +56,10 @@
 
 
 @section('page-scripts')
+{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
     <script>
         window.urlUsers = '{{ route("users.list") }}';
     </script>
     <script src="{{ asset('assets/js/pages/users/users.js') }}"></script>
+    
 @endsection

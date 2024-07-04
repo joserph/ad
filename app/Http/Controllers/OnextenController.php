@@ -4,16 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Geograficos;
 use App\Models\Seccional;
+use App\Rules\DuplicateCI;
 use Illuminate\Http\Request;
 use App\Http\Requests\OnextenRequest;
 use App\Models\CentrosVotacion;
 use App\Models\Onexten;
 use App\Models\OnextenItem;
+use Illuminate\Validation\Validator;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\File;
 
 class OnextenController extends Controller
 {
+
+    // function __construct()
+    // {
+    //     $this->middleware('permission:mostrar-unoxdiez', ['only' => ['index']]);
+    //     $this->middleware('permission:crear-unoxdiez', ['only' => ['create', 'store']]);
+    //     $this->middleware('permission:ver-unoxdiez', ['only' => ['show']]);
+    //     $this->middleware('permission:editar-unoxdiez', ['only' => ['edit', 'update']]);
+    //     $this->middleware('permission:eliminar-unoxdiez', ['only' => ['destroy']]);
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -109,6 +120,15 @@ class OnextenController extends Controller
      */
     public function store(OnextenRequest $request)
     {
+        $request->validate([
+            'cedula' => ['unique:onexten_items,cedula', new DuplicateCI()],
+        ]);
+        // if(count($request['cedula']) > count(array_unique($request['cedula']))){
+        //     dd("¡Hay repetidos!");
+        //   }else{
+        //     dd("No hay repetidos");
+        //   }
+        
         // dd($request['cedula'][0]);
         $onexten = Onexten::create([
             'responsable' => $request['responsable'],
@@ -121,6 +141,7 @@ class OnextenController extends Controller
 
         for($i = 0; $i <= 9; $i++){
             //dd($request['cedula'][$i]);
+            
             $j = $i + 1;
             OnextenItem::create([
                 'item' => $j,
@@ -137,6 +158,7 @@ class OnextenController extends Controller
         session()->flash('success', '1 x 10 creado con éxito.');
 
         return redirect()->route('onexten.index');
+        
     }
 
     /**
