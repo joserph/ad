@@ -46,6 +46,7 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Alcance</th>
+                        {{-- <th>Dirección</th> --}}
                         <th>Telefono</th>
                         <th>Cargo</th>
                         <th>Buró</th>
@@ -61,6 +62,7 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Alcance</th>
+                        {{-- <th>Dirección</th> --}}
                         <th>Telefono</th>
                         <th>Cargo</th>
                         <th>Buró</th>
@@ -96,6 +98,7 @@
                 // { data: 'apellido', name: 'apellido' },
                 // { data: 'cedula', name: 'cedula' },
                 { data: 'alcance'},
+                // { data: 'direccion'},
                 { data: 'telefono'},
                 // { data: 'correo'},
                 // { data: 'fecha_nacimiento'},

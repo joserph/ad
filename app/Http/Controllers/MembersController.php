@@ -383,7 +383,7 @@ class MembersController extends Controller
                 return $buro;
             })
             ->addColumn('action', 'pages.members.partials.btns')
-            ->rawColumns(['nombre_completo', 'alcance', 'cargo', 'buro', 'action'])
+            ->rawColumns(['nombre_completo', 'alcance', 'direccion', 'cargo', 'buro', 'action'])
             ->toJson();
 
         return $data;

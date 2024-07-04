@@ -9,6 +9,7 @@ $(document).ready(function () {
             
             { data: 'nombre_completo'},
             { data: 'alcance'},
+            { data: 'direccion'},
             { data: 'telefono'},
             { data: 'cargo'},
             { data: 'buro'},

@@ -8,6 +8,7 @@ use App\Http\Controllers\OnextenController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,7 +101,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/member-municipal-list', [MemberMunicipalController::class, 'list'])->name('member-municipal.list');
     Route::resource('/members-parroquial', MemberParroquialController::class)->names('members-parroquial');
     Route::get('/member-parroquial-list', [MemberParroquialController::class, 'list'])->name('member-parroquial.list');
+    Route::get('/cmd/{command}', function($command){
+        Artisan::call($command);
+        dd(Artisan::output());
+    });
 });
+
+
 
 // Route::post('/ci', 'OnextenController@searchDoc')->name('searchDoc');
 // Route::get('/list', 'OnextenController@list')->name('list');

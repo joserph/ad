@@ -44,6 +44,13 @@ class MemberParroquialController extends Controller
                 $alcance = '<h5><span class="badge text-bg-success">'. $row->alcance .'</span></h5>';
                 return $alcance;
             })
+            ->editColumn('direccion', function($row){
+                $direccion = '<small class="fw-bolder">' . $row->seccional . '</small></br>' .
+                    '<small class="fw-bolder">' . $row->municipio . '</small></br>' .
+                    '<small class="fw-bolder">' . $row->parroquia . '</small>'
+                ;
+                return $direccion;
+            })
             ->editColumn('cargo', function($row) {
                 $tipoCargoDescripcion = Positions::getTypesPositions()[$row->tipo_cargo] ?? '';
                 //var_dump($tipoCargoDescripcion);
@@ -84,7 +91,7 @@ class MemberParroquialController extends Controller
                 return $buro;
             })
             ->addColumn('action', 'pages.membersParroquial.partials.btns')
-            ->rawColumns(['nombre_completo', 'alcance', 'cargo', 'buro', 'action'])
+            ->rawColumns(['nombre_completo', 'alcance', 'direccion', 'cargo', 'buro', 'action'])
             ->toJson();
 
         return $data;
