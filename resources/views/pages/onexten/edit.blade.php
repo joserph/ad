@@ -17,7 +17,7 @@
                         <a class="text-muted text-decoration-none" href="{{ route('notices.home') }}">Inicio</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a class="text-muted text-decoration-none" href="{{ route('onexten.index') }}">1 x 10</a>
+                        <a class="text-muted text-decoration-none" href="{{ route('onexten.index') }}">Listado 1 x 10</a>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">Editar</li>
                 </ol>
@@ -38,6 +38,8 @@
             <form class="row" method="POST" action="{{ route('onexten.update', $onexten->id) }}">
                 @csrf
                 @method('PUT')
+                {!! Form::hidden('id_user', Auth::user()->id) !!}
+                {!! Form::hidden('id', $onexten->id) !!}
                 <!-- responsable -->
                 <div class="mb-3 col-md-6 col-lg-4">
                     <label for="responsable" class="form-label">Responsable</label>

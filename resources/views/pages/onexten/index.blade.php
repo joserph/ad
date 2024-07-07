@@ -1,3 +1,4 @@
+@can('mostrar-unoxdiez')
 @extends('layouts.app')
 
 @section('styles')
@@ -33,6 +34,12 @@
                   </div>
                 </div>
               </div>
+              @can('crear-unoxdiez')
+                <a class="btn btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar" href="{{ route('onexten.create') }}">
+                    <i class="ti ti-circle-plus"></i> Registrar
+                </a>
+              @endcan
+              
             </div>
         </div>
 
@@ -52,7 +59,7 @@
                     </tr>
                     <!-- end row -->
                 </thead>
-                <tbody>
+                {{-- <tbody>
                     @foreach ($onextens as $item)
                         <tr>
                             <td>{{ $item->responsable }}</td>
@@ -69,28 +76,11 @@
                                 
                             </td>
                             <td>
-                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                <a href="{{ route('onexten.edit', $item->id) }}" class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a>
-                                {{-- <form method="POST" action="{{ route('onexten.destroy', $item->id) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <a type="submit" class="btn btn-sm btn-danger" ><i class="ti ti-trash"></i></a>
-                                </form> --}}
-
-                                <form method="POST" action="{{ route('onexten.destroy', $item->id) }}" accept-charset="UTF-8"><input name="_method" type="hidden" value="DELETE">
-                                    @csrf
-                                    <button type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar carga" class="btn btn-sm btn-danger" onclick="return confirm(&quot;¿Seguro de eliminar el 1 x 10?&quot;)"><i class="ti ti-trash"></i> </button>
-                                </form>
-                                
-                                </div>
-                                {{-- {{ Form::open(['route' => ['onexten.destroy', $item->id], 'method' => 'DELETE']) }}
-                                    {{ Form::button('<i class="fas fa-trash-alt"></i> ' . '', ['type' => 'submit', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => 'Eliminar Vuelo', 'class' => 'btn btn-sm btn-outline-danger', 'onclick' => 'return confirm("¿Seguro de eliminar el 1 x 10?")']) }}
-                                {{ Form::close() }} --}}
+                                @include('pages.onexten.partials.btns')
                             </td>
-                            
                         </tr>
                     @endforeach
-                </tbody>
+                </tbody> --}}
                 <tfoot>
                     <tr>
                         <th>Responsable</th>
@@ -113,30 +103,22 @@
 @endsection
 
 @section('page-scripts')
-    {{-- <script>
+    <script>
         let table = $('#datatable-onexten').DataTable({
             processing: true,
             serverSide: true,
-            pageLength: 25,
+            pageLength: 10,
             lengthMenu: [10, 25, 50, 100],
-            ajax: '{{ route("list") }}',
+            ajax: '{{ route("onexten.list") }}',
             columns: [
-                // {
-                //     data: "id",
-                //     render: function (data, type, row) {
-                //         return '<input type="checkbox" class="select-member form-check-input" value="' + data + '">';
-                //     }
-                // },
-                { data: 'responsable', name: 'responsable' },
-                // { data: 'apellido', name: 'apellido' },
-                // { data: 'cedula', name: 'cedula' },
-                //{ data: 'telefono', name: 'telefono' },
-                //{ data: 'seccional', name: 'seccional' },
-                //{ data: 'municipio', name: 'municipio' },
-                //{ data: 'parroquia', name: 'parroquia' },
-                // { data: 'tipo_cargo', name: 'tipo_cargo' },
-                //{ data: 'sector', name: 'sector' },
-                //{ data: 'action', name: 'action', orderable: false, searchable: false },
+                { data: 'responsable'},
+                { data: 'telefono'},
+                { data: 'seccional'},
+                { data: 'municipio'},
+                { data: 'parroquia'},
+                { data: 'sector'},
+                { data: 'miembros'},
+                { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
             language: {
                 processing:     "Procesando...",
@@ -164,44 +146,6 @@
             //     $('#datatable-members_length, #datatable-members_filter').wrapAll('<div class="d-flex align-items-center justify-content-between"></div>');
             // },
         });
-
-        $('#datatable-members').on('change', '.select-member', function() {
-            if ($('.select-member:checked').length > 0) {
-                $('#deleteMasive').removeClass('d-none');
-            } else {
-                $('#deleteMasive').addClass('d-none');
-            }
-        })
-
-        $('#datatable-members').on('order.dt search.dt', function () {
-            $('.select-member').prop('checked', false);
-            $('.select-member').change();
-        });
-
-        $(document).on('click', '#delete-masive-confirm', function() {
-            let selectedIds = $('.select-member:checked').map(function() {
-                return $(this).val();
-            }).get();
-
-            $.ajax({
-                url: '{{ route("members.deleteMasive") }}',
-                type: 'POST',
-                data: { ids: selectedIds },
-                success: function(response) {
-                    console.log(response)
-                    toastr.success(response.message, "¡Éxito!", {
-                        progressBar: true,
-                    });
-                    $('.dataTableCurrent').DataTable().ajax.reload();
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                    toastr.error(xhr.responseText, "Error", {
-                        progressBar: true,
-                    });
-                }
-            });
-        });
-
-    </script> --}}
+    </script>
 @endsection
+@endcan

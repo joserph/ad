@@ -1,6 +1,4 @@
 @can('mostrar-roles')
-    
-
 @extends('layouts.app')
 
 @section('content')

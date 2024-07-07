@@ -1,3 +1,6 @@
+@can('mostrar-noticias')
+    
+
 @extends('layouts.app')
 
 @section('styles')
@@ -33,6 +36,11 @@
                   </div>
                 </div>
               </div>
+              @can('crear-noticia')
+                <a class="btn btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar" href="{{ route('notices.create') }}">
+                    <i class="ti ti-circle-plus"></i> Agregar
+                </a>
+              @endcan
             </div>
         </div>
 
@@ -177,3 +185,4 @@
 
     </script>
 @endsection
+@endcan

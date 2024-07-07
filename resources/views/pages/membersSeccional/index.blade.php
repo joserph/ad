@@ -1,3 +1,4 @@
+@can('mostrar-comite-ejecutivo-seccional')
 @extends('layouts.app')
 
 @section('content')
@@ -25,11 +26,17 @@
                   </div>
                 </div>
               </div>
-              
+                @can('crear-comite-ejecutivo-seccional')
                 <a class="btn btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar" href="{{ route('members-seccional.create') }}">
                     <i class="ti ti-circle-plus"></i> Agregar
                 </a>
-              
+                @endcan
+                @can('descargar-comite-ejecutivo-seccional')
+                <a class="btn btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar" href="{{ route('member-seccional.export') }}">
+                    <i class="ti ti-arrow-down"></i> Exportar
+                </a>
+                @endcan
+                
             </div>
         </div>
 
@@ -76,3 +83,4 @@
     <script src="{{ asset('assets/js/pages/members/members-list.js') }}"></script>
     
 @endsection
+@endcan

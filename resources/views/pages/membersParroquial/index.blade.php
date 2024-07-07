@@ -1,3 +1,4 @@
+@can('mostrar-comite-ejecutivo-parroquial')
 @extends('layouts.app')
 
 @section('content')
@@ -25,11 +26,17 @@
                   </div>
                 </div>
               </div>
-              
-                <a class="btn btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar" href="{{ route('members-parroquial.create') }}">
-                    <i class="ti ti-circle-plus"></i> Agregar
+              @can('crear-comite-ejecutivo-parroquial')
+              <a class="btn btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar" href="{{ route('members-parroquial.create') }}">
+                <i class="ti ti-circle-plus"></i> Agregar
+            </a>
+              @endcan
+                @can('descargar-comite-ejecutivo-parroquial')
+                <a class="btn btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar" href="{{ route('member-parroquial.export') }}">
+                    <i class="ti ti-arrow-down"></i> Exportar
                 </a>
-              
+                @endcan
+                
             </div>
         </div>
 
@@ -76,3 +83,4 @@
     <script src="{{ asset('assets/js/pages/members/members-list.js') }}"></script>
     
 @endsection
+@endcan

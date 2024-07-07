@@ -1,3 +1,4 @@
+@can('mostrar-comite')
 @extends('layouts.app')
 
 @section('styles')
@@ -39,6 +40,12 @@
                   </div>
                 </div>
               </div>
+              @can('crear-comite')
+              <a class="btn btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar" href="{{ route('committe-local.create') }}">
+                <i class="ti ti-circle-plus"></i> Registrar
+            </a>
+              @endcan
+              
             </div>
         </div>
 
@@ -170,3 +177,4 @@
 
     </script>
 @endsection
+@endcan

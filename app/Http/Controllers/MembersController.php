@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MemberNacionalExport;
 use App\Models\Comite;
 use App\Models\Members;
 use App\Models\Scope;
@@ -23,14 +24,16 @@ use Yajra\DataTables\DataTables;
 
 class MembersController extends Controller
 {
-    // function __construct()
-    // {
-    //     $this->middleware('permission:mostrar-miembros', ['only' => ['index']]);
-    //     $this->middleware('permission:crear-miembro', ['only' => ['create', 'store']]);
-    //     $this->middleware('permission:ver-miembro', ['only' => ['show']]);
-    //     $this->middleware('permission:editar-miembro', ['only' => ['edit', 'update']]);
-    //     $this->middleware('permission:eliminar-miembro', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:mostrar-comite-ejecutivo-nacional', ['only' => ['index']]);
+        $this->middleware('permission:crear-comite-ejecutivo-nacional', ['only' => ['create', 'store']]);
+        $this->middleware('permission:ver-comite-ejecutivo-nacional', ['only' => ['show']]);
+        $this->middleware('permission:editar-comite-ejecutivo-nacional', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-comite-ejecutivo-nacional', ['only' => ['destroy']]);
+        $this->middleware('permission:carga-masiva', ['only' => ['uploads']]);
+        $this->middleware('permission:descargar-comite-ejecutivo-nacional', ['only' => ['export']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -657,6 +660,11 @@ class MembersController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Lo sentimos sucedió algo al realizar la acción.']);
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new MemberNacionalExport, 'members_Nacional_' . date('dmY_His_') . '.xlsx');
     }
 
 }

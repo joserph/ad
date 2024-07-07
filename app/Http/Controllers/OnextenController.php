@@ -10,6 +10,7 @@ use App\Http\Requests\OnextenRequest;
 use App\Models\CentrosVotacion;
 use App\Models\Onexten;
 use App\Models\OnextenItem;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Validator;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\File;
@@ -17,14 +18,14 @@ use Illuminate\Support\Facades\File;
 class OnextenController extends Controller
 {
 
-    // function __construct()
-    // {
-    //     $this->middleware('permission:mostrar-unoxdiez', ['only' => ['index']]);
-    //     $this->middleware('permission:crear-unoxdiez', ['only' => ['create', 'store']]);
-    //     $this->middleware('permission:ver-unoxdiez', ['only' => ['show']]);
-    //     $this->middleware('permission:editar-unoxdiez', ['only' => ['edit', 'update']]);
-    //     $this->middleware('permission:eliminar-unoxdiez', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:mostrar-unoxdiez', ['only' => ['index']]);
+        $this->middleware('permission:crear-unoxdiez', ['only' => ['create', 'store']]);
+        $this->middleware('permission:ver-unoxdiez', ['only' => ['show']]);
+        $this->middleware('permission:editar-unoxdiez', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-unoxdiez', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -34,17 +35,22 @@ class OnextenController extends Controller
     {
         $onextens = Onexten::paginate(10);
         $onextenItems = OnextenItem::all();
-        return view('pages.onexten.index', compact(
-            'onextens',
-            'onextenItems'
-        ));
+        return view('pages.onexten.index');
     }
 
     public function list()
     {
-        $model = Onexten::query()->orderBy('created_at', 'desc');
-
+        $model = Onexten::where('id_user', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+        // $countMembers = OnextenItem::where('onexten_id', $model->id)->where('cedula', '!=', null)->count();
+        // dd($model);
         $data = DataTables::of($model)
+            ->editColumn('miembros', function($row){
+                $countMembers = OnextenItem::where('onexten_id', $row->id)->where('cedula', '!=', null)->count();
+                $miembros = '<span class="badge text-bg-success text-center">' . $countMembers . '</span>';
+                return $miembros;
+            })
+            ->addColumn('action', 'pages.onexten.partials.btns')
+            ->rawColumns(['miembros', 'action'])
             ->toJson();
 
         return $data;
@@ -120,6 +126,7 @@ class OnextenController extends Controller
      */
     public function store(OnextenRequest $request)
     {
+        // dd($request);
         $request->validate([
             'cedula' => ['unique:onexten_items,cedula', new DuplicateCI()],
         ]);
@@ -137,6 +144,7 @@ class OnextenController extends Controller
             'municipio' => $request['municipio'],
             'parroquia' => $request['parroquia'],
             'sector' => $request['sector'],
+            'id_user' => $request['id_user'],
         ]);
 
         for($i = 0; $i <= 9; $i++){
@@ -211,6 +219,7 @@ class OnextenController extends Controller
             'municipio' => $request['municipio'],
             'parroquia' => $request['parroquia'],
             'sector' => $request['sector'],
+            'id_user' => $request['id_user'],
         ]);
 
         for($i = 0; $i <= 9; $i++){

@@ -16,5 +16,6 @@ class Onexten extends Model
         'municipio',
         'parroquia',
         'sector',
+        'id_user'
     ];
 }

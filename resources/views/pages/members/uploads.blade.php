@@ -1,3 +1,4 @@
+@can('carga-masiva')
 @extends('layouts.app')
 
 @section('styles')
@@ -64,3 +65,4 @@
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/forms/datepicker-init.js') }}"></script>
 @endsection
+@endcan

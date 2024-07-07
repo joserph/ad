@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MemberParroquialExport;
 use App\Http\Requests\MembersStoreRequest;
 use App\Http\Requests\MembersUpdateRequest;
 use App\Models\Gender;
@@ -13,10 +14,20 @@ use App\Models\Seccional;
 use App\Models\SocialNetwork;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class MemberParroquialController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:mostrar-comite-ejecutivo-parroquial', ['only' => ['index']]);
+        $this->middleware('permission:crear-comite-ejecutivo-parroquial', ['only' => ['create', 'store']]);
+        $this->middleware('permission:ver-comite-ejecutivo-parroquial', ['only' => ['show']]);
+        $this->middleware('permission:editar-comite-ejecutivo-parroquial', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-comite-ejecutivo-parroquial', ['only' => ['destroy']]);
+        $this->middleware('permission:descargar-comite-ejecutivo-parroquial', ['only' => ['export']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -302,5 +313,10 @@ class MemberParroquialController extends Controller
         session()->flash('success', 'Miembro eliminado con éxito!');
 
         return redirect()->route('members-parroquial.index');
+    }
+
+    public function export()
+    {
+        return Excel::download(new MemberParroquialExport, 'members_Parroquial_' . date('dmY_His_') . '.xlsx');
     }
 }

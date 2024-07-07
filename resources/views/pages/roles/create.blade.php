@@ -5,7 +5,7 @@
         <div class="card-body px-4 py-3" bis_skin_checked="1">
             <div class="row align-items-center" bis_skin_checked="1">
             <div class="col-9" bis_skin_checked="1">
-                <h4 class="fw-semibold mb-8">Crear Role</h4>
+                <h4 class="fw-semibold mb-8">Crear Rol</h4>
                 <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">

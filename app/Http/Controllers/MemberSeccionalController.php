@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MemberSeccionalExport;
 use App\Http\Requests\MembersStoreRequest;
 use App\Http\Requests\MembersUpdateRequest;
 use App\Models\Gender;
@@ -13,10 +14,20 @@ use App\Models\Seccional;
 use App\Models\SocialNetwork;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class MemberSeccionalController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:mostrar-comite-ejecutivo-seccional', ['only' => ['index']]);
+        $this->middleware('permission:crear-comite-ejecutivo-seccional', ['only' => ['create', 'store']]);
+        $this->middleware('permission:ver-comite-ejecutivo-seccional', ['only' => ['show']]);
+        $this->middleware('permission:editar-comite-ejecutivo-seccional', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-comite-ejecutivo-seccional', ['only' => ['destroy']]);
+        $this->middleware('permission:descargar-comite-ejecutivo-seccional', ['only' => ['export']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -302,5 +313,10 @@ class MemberSeccionalController extends Controller
         session()->flash('success', 'Miembro eliminado con éxito!');
 
         return redirect()->route('members-seccional.index');
+    }
+
+    public function export()
+    {
+        return Excel::download(new MemberSeccionalExport, 'members_Seccional_' . date('dmY_His_') . '.xlsx');
     }
 }

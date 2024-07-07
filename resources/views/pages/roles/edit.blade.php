@@ -5,7 +5,7 @@
         <div class="card-body px-4 py-3" bis_skin_checked="1">
             <div class="row align-items-center" bis_skin_checked="1">
             <div class="col-9" bis_skin_checked="1">
-                <h4 class="fw-semibold mb-8">Editar Role</h4>
+                <h4 class="fw-semibold mb-8">Editar Rol</h4>
                 <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
@@ -38,6 +38,7 @@
                     @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                    <th colspan="2" class="text-center medium-letter"><input type="checkbox" name="ids" id="select_all_ids"> Seleccionar Todos</th>
                 </div>
                 <div class="col-sm-12">
                     <div class="mb-3">
@@ -47,12 +48,12 @@
             
                         @foreach ($permission as $key => $item)
             
-                            <div class="col-2">
+                        <div class="form-check">
                                 <label for="permission" class="form-check-label">
                                     @isset($role)
                                         {{-- {{ form::checkbox('permission[]', $item->id, in_array($item->id, $rolePermissions) ? true : false, ['class' => 'form-check-input', 'id' => 'permission']) }}
                                         {{ $item->name }} --}}
-                                        <input class="form-check-input" name="permission[]" type="checkbox" @if (in_array($item->id, $rolePermissions))
+                                        <input class="form-check-input checkbox_ids" name="permission[]" type="checkbox" @if (in_array($item->id, $rolePermissions))
                                         checked="checked"
                                         @endif value="{{$item->id}}" id="flexCheckDefault_{{$item->id}}">
                                         <label class="form-check-label" for="flexCheckDefault_{{$item->id}}">
@@ -88,6 +89,14 @@
 
 
 @section('page-scripts')
+<script>
+    $(function(e){
+        $('#select_all_ids').click(function(){
+            $('.checkbox_ids').prop('checked', $(this).prop('checked'));
+         });
+    });
+    
+</script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
     {{-- <script>
         window.urlUsers = '{{ route("users.list") }}';

@@ -14,14 +14,14 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    // function __construct()
-    // {
-    //     $this->middleware('permission:mostrar-usuarios', ['only' => ['index']]);
-    //     $this->middleware('permission:crear-usuario', ['only' => ['create', 'store']]);
-    //     $this->middleware('permission:ver-usuario', ['only' => ['show']]);
-    //     $this->middleware('permission:editar-usuario', ['only' => ['edit', 'update']]);
-    //     $this->middleware('permission:eliminar-usuario', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:mostrar-usuarios', ['only' => ['index']]);
+        $this->middleware('permission:crear-usuario', ['only' => ['create', 'store']]);
+        $this->middleware('permission:ver-usuario', ['only' => ['show']]);
+        $this->middleware('permission:editar-usuario', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-usuario', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

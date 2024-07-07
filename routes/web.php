@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'members', 'as' => 'members.',
     Route::delete('/delete/{members}', 'destroy')->name('delete');
     Route::post('/delete-masive', 'deleteMasive')->name('deleteMasive');
     Route::post('/ci', 'searchDoc')->name('searchDoc');
+    Route::get('/export', 'export')->name('export');
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'committe-local', 'as' => 'committe-local.', 'controller' => App\Http\Controllers\ComiteLocalController::class], function () {
@@ -90,6 +91,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users-list', [UserController::class, 'list'])->name('users.list');
     Route::get('/users-modal-delete/{users}', [UserController::class, 'modal_delete'])->name('users.modalDelete');
     Route::resource('/onexten', OnextenController::class)->names('onexten');
+    Route::get('/onexten-list', [OnextenController::class, 'list'])->name('onexten.list');
     Route::get('/centro_votacion/{id}', [OnextenController::class, 'centro_votacion'])->name('centro_votacion');
     Route::resource('/roles', RoleController::class)->names('roles');
     Route::get('/roles-list', [RoleController::class, 'list'])->name('roles.list');
@@ -97,10 +99,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/permissions-list', [PermissionController::class, 'list'])->name('permissions.list');
     Route::resource('/members-seccional', MemberSeccionalController::class)->names('members-seccional');
     Route::get('/member-seccional-list', [MemberSeccionalController::class, 'list'])->name('member-seccional.list');
+    Route::get('/member-seccional/export', [MemberSeccionalController::class, 'export'])->name('member-seccional.export');
     Route::resource('/members-municipal', MemberMunicipalController::class)->names('members-municipal');
     Route::get('/member-municipal-list', [MemberMunicipalController::class, 'list'])->name('member-municipal.list');
+    Route::get('/member-municipal/export', [MemberMunicipalController::class, 'export'])->name('member-municipal.export');
     Route::resource('/members-parroquial', MemberParroquialController::class)->names('members-parroquial');
     Route::get('/member-parroquial-list', [MemberParroquialController::class, 'list'])->name('member-parroquial.list');
+    Route::get('/member-parroquial/export', [MemberParroquialController::class, 'export'])->name('member-parroquial.export');
     Route::get('/cmd/{command}', function($command){
         Artisan::call($command);
         dd(Artisan::output());

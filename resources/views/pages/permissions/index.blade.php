@@ -1,3 +1,4 @@
+@can('mostrar-permisos')
 @extends('layouts.app')
 
 @section('content')
@@ -26,9 +27,12 @@
                 </div>
                 
               </div>
+              @can('crear-permiso')
                 <a class="btn btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Crear" href="{{ route('permissions.create') }}">
                     <i class="ti ti-circle-plus"></i> Crear Permiso
                 </a>
+              @endcan
+                
             </div>
         </div>
 
@@ -65,3 +69,4 @@
     <script src="{{ asset('assets/js/pages/roles_permissions/permissions.js') }}"></script>
     
 @endsection
+@endcan

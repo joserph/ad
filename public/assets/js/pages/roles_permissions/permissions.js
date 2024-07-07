@@ -2,7 +2,7 @@ $(document).ready(function () {
     let table = $('#table-permissions').DataTable({
         processing: true,
         serverSide: true,
-        pageLength: 25,
+        pageLength: 10,
         lengthMenu: [10, 25, 50, 100],
         ajax: urlPermission,
         columns: [

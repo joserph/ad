@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('municipio');
             $table->string('parroquia');
             $table->string('sector');
+            $table->foreignId('id_user')->references('id')->on('users');
             
             $table->timestamps();
         });

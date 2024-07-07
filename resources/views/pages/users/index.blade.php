@@ -1,3 +1,4 @@
+@can('mostrar-usuarios')
 @extends('layouts.app')
 
 @section('content')
@@ -25,6 +26,12 @@
                   </div>
                 </div>
               </div>
+              @can('crear-usuario')
+              <a class="btn btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar" href="{{ route('users.create') }}">
+                <i class="ti ti-circle-plus"></i> Registrar
+            </a>
+              @endcan
+              
             </div>
         </div>
 
@@ -63,3 +70,4 @@
     <script src="{{ asset('assets/js/pages/users/users.js') }}"></script>
     
 @endsection
+@endcan

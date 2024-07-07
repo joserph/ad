@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use DataTables;
 use App\Models\Notices;
 use App\Models\NoticeCategories;
 use App\Models\NoticeFile;
@@ -13,18 +12,19 @@ use App\Http\Requests\NoticesStoreRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Collection;
+use Yajra\DataTables\DataTables;
 
 
 class NoticesController extends Controller
 {
-    // function __construct()
-    // {
-    //     $this->middleware('permission:mostrar-noticias', ['only' => ['index']]);
-    //     $this->middleware('permission:crear-noticia', ['only' => ['create', 'store']]);
-    //     $this->middleware('permission:ver-noticia', ['only' => ['show']]);
-    //     $this->middleware('permission:editar-noticia', ['only' => ['edit', 'update']]);
-    //     $this->middleware('permission:eliminar-noticia', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:mostrar-noticias', ['only' => ['index']]);
+        $this->middleware('permission:crear-noticia', ['only' => ['create', 'store']]);
+        $this->middleware('permission:ver-noticia', ['only' => ['show', 'detail']]);
+        $this->middleware('permission:editar-noticia', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-noticia', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -68,19 +68,20 @@ class NoticesController extends Controller
             ->addColumn('content', function ($row) {
                 return Str::limit($row->content, 50);
             })
-            ->addColumn('action', function($row){
-                return '<div class="d-flex">
-                    <a href='. route('notices.detail', $row) .' class="btn btn-icon btn-info btn-sm me-1">
-                        <i class="ti ti-eye"></i>
-                    </a>
-                    <a href='. route('notices.create', $row) .' class="btn btn-icon btn-warning btn-sm me-1">
-                        <i class="ti ti-pencil"></i>
-                    </a>
-                    <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('notices.modalDelete', $row) .'">
-                        <i class="ti ti-trash"></i>
-                    </button>
-                </div>';
-            })
+            // ->addColumn('action', function($row){
+            //     return '<div class="d-flex">
+            //         <a href='. route('notices.detail', $row) .' class="btn btn-icon btn-info btn-sm me-1">
+            //             <i class="ti ti-eye"></i>
+            //         </a>
+            //         <a href='. route('notices.create', $row) .' class="btn btn-icon btn-warning btn-sm me-1">
+            //             <i class="ti ti-pencil"></i>
+            //         </a>
+            //         <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('notices.modalDelete', $row) .'">
+            //             <i class="ti ti-trash"></i>
+            //         </button>
+            //     </div>';
+            // })
+            ->addColumn('action', 'pages.notices.partials.btns')
             ->rawColumns(['id', 'media_path', 'title', 'link', 'content', 'action'])
             ->toJson();
 

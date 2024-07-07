@@ -39,26 +39,53 @@
                         <span class="hide-menu">Inicio</span>
                     </a>
                 </li>
+                @can('mostrar-noticias')
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'notices.index' ? 'active' : '' }}" href="{{ route('notices.index') }}">
                         <span>
                             <i class="ti ti-list-details"></i>
                         </span>
-                        <span class="hide-menu">Administrador</span>
+                        <span class="hide-menu">Admin. Noticias</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                @endcan
+                
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'notices.create' ? 'active' : '' }}" href="{{ route('notices.create') }}">
                         <span>
                             <i class="ti ti-circle-plus"></i>
                         </span>
                         <span class="hide-menu">Crear noticia</span>
                     </a>
-                </li>
+                </li> --}}
+                @can('mostrar-comite-ejecutivo-nacional')
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Institucion</span>
                 </li>
+                @elsecan('mostrar-comite-ejecutivo-seccional')
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Institucion</span>
+                </li>
+                @elsecan('mostrar-comite-ejecutivo-municipal')
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Institucion</span>
+                </li>
+                @elsecan('mostrar-comite-ejecutivo-parroquial')
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Institucion</span>
+                </li>
+                @elsecan('carga-masiva')
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Institucion</span>
+                </li>
+                @endcan
+                
+                @can('mostrar-comite-ejecutivo-nacional')
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'members.index' ? 'active' : '' }}" href="{{ route('members.index') }}">
                         <span>
@@ -67,6 +94,8 @@
                         <span class="hide-menu">Comt. Ejec. Nacionales</span>
                     </a>
                 </li>
+                @endcan
+                @can('mostrar-comite-ejecutivo-seccional')
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'members-seccional.index' ? 'active' : '' }}" href="{{ route('members-seccional.index') }}">
                         <span>
@@ -75,6 +104,8 @@
                         <span class="hide-menu">Comt. Ejec. Seccional</span>
                     </a>
                 </li>
+                @endcan
+                @can('mostrar-comite-ejecutivo-municipal')
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'members-municipal.index' ? 'active' : '' }}" href="{{ route('members-municipal.index') }}">
                         <span>
@@ -83,6 +114,8 @@
                         <span class="hide-menu">Comt. Ejec. Municipal</span>
                     </a>
                 </li>
+                @endcan
+                @can('mostrar-comite-ejecutivo-parroquial')
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'members-parroquial.index' ? 'active' : '' }}" href="{{ route('members-parroquial.index') }}">
                         <span>
@@ -91,6 +124,8 @@
                         <span class="hide-menu">Comt. Ejec. Parroquial</span>
                     </a>
                 </li>
+                @endcan
+                
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'members.create' ? 'active' : '' }}" href="{{ route('members.create') }}">
                         <span>
@@ -99,6 +134,7 @@
                         <span class="hide-menu">Registrar Miembros</span>
                     </a>
                 </li> --}}
+                @can('carga-masiva')
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'members.uploads' ? 'active' : '' }}" href="{{ route('members.uploads') }}">
                         <span>
@@ -107,7 +143,9 @@
                         <span class="hide-menu">Carga Masiva</span>
                     </a>
                 </li>
-
+                @endcan
+                
+                @can('mostrar-comite')
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Comite Local</span>
@@ -120,14 +158,17 @@
                         <span class="hide-menu">Listado</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                @endcan
+                
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link {{ Route::currentRouteName() == 'committe-local.create' ? 'active' : '' }}" href="{{ route('committe-local.create') }}">
                         <span>
                             <i class="ti ti-circle-plus"></i>
                         </span>
                         <span class="hide-menu">Registrar</span>
                     </a>
-                </li>
+                </li> --}}
+                @can('mostrar-unoxdiez')
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Uno por Diez</span>
@@ -140,15 +181,17 @@
                         <span class="hide-menu">Listado</span>
                     </a>
                 </li>
+                @endcan
+                
 
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'onexten.create' ? 'active' : '' }}" href="{{ route('onexten.create') }}">
                         <span>
                             <i class="ti ti-circle-plus"></i>
                         </span>
                         <span class="hide-menu">Registrar 1 x 10</span>
                     </a>
-                </li>
+                </li> --}}
 
                 {{-- <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -170,7 +213,7 @@
                         <span class="hide-menu">Registrar</span>
                     </a>
                 </li> --}}
-
+                @can('mostrar-usuarios')
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Usuarios</span>
@@ -183,14 +226,17 @@
                         <span class="hide-menu">Listado</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                @endcan
+                
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'users.create' ? 'active' : '' }}" href="{{ route('users.create') }}">
                         <span>
                             <i class="ti ti-circle-plus"></i>
                         </span>
                         <span class="hide-menu">Registrar</span>
                     </a>
-                </li>
+                </li> --}}
+                @can('mostrar-roles')
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Roles</span>
@@ -203,6 +249,8 @@
                         <span class="hide-menu">Listado</span>
                     </a>
                 </li>
+                @endcan
+                @can('mostrar-permisos')
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Permisos</span>
@@ -215,6 +263,8 @@
                         <span class="hide-menu">Listado</span>
                     </a>
                 </li>
+                @endcan
+                
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::currentRouteName() == 'roles.create' ? 'active' : '' }}" href="{{ route('roles.create') }}">
                         <span>

@@ -17,7 +17,7 @@
                         <a class="text-muted text-decoration-none" href="{{ route('notices.home') }}">Inicio</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a class="text-muted text-decoration-none" href="{{ route('members.index') }}">Miembros</a>
+                        <a class="text-muted text-decoration-none" href="{{ route('onexten.index') }}">Listado 1 x 10</a>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">Registrar</li>
                 </ol>
@@ -46,6 +46,7 @@
             <form class="row" method="POST" action="{{ route('onexten.store') }}">
                 @csrf
                 <!-- responsable -->
+                {!! Form::hidden('id_user', Auth::user()->id) !!}
                 <div class="mb-3 col-md-6 col-lg-4">
                     <label for="responsable" class="form-label">Responsable</label>
                     <input type="text" class="form-control @error('responsable') is-invalid @enderror" id="responsable" name="responsable" value="{{ old('responsable') }}">

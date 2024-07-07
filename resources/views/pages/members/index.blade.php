@@ -1,3 +1,4 @@
+@can('mostrar-comite-ejecutivo-nacional')
 @extends('layouts.app')
 
 @section('styles')
@@ -33,9 +34,17 @@
                   </div>
                 </div>
               </div>
-              <a class="btn btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar" href="{{ route('members.create') }}">
-                <i class="ti ti-circle-plus"></i> Agregar
-            </a>
+              @can('crear-comite-ejecutivo-nacional')
+                <a class="btn btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar" href="{{ route('members.create') }}">
+                    <i class="ti ti-circle-plus"></i> Agregar
+                </a>
+              @endcan
+              @can('descargar-comite-ejecutivo-nacional')
+                <a class="btn btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar" href="{{ route('members.export') }}">
+                    <i class="ti ti-arrow-down"></i> Exportar
+                </a>
+              @endcan
+                
             </div>
         </div>
 
@@ -174,3 +183,4 @@
 
     </script>
 @endsection
+@endcan

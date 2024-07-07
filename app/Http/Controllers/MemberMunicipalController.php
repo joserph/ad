@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MemberMunicipalExport;
 use App\Http\Requests\MembersStoreRequest;
 use App\Http\Requests\MembersUpdateRequest;
 use App\Models\Gender;
@@ -13,10 +14,20 @@ use App\Models\Seccional;
 use App\Models\SocialNetwork;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class MemberMunicipalController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:mostrar-comite-ejecutivo-municipal', ['only' => ['index']]);
+        $this->middleware('permission:crear-comite-ejecutivo-municipal', ['only' => ['create', 'store']]);
+        $this->middleware('permission:ver-comite-ejecutivo-municipal', ['only' => ['show']]);
+        $this->middleware('permission:editar-comite-ejecutivo-municipal', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-comite-ejecutivo-municipal', ['only' => ['destroy']]);
+        $this->middleware('permission:descargar-comite-ejecutivo-municipal', ['only' => ['export']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -302,5 +313,10 @@ class MemberMunicipalController extends Controller
         session()->flash('success', 'Miembro eliminado con éxito!');
 
         return redirect()->route('members-municipal.index');
+    }
+
+    public function export()
+    {
+        return Excel::download(new MemberMunicipalExport, 'members_Municipal_' . date('dmY_His_') . '.xlsx');
     }
 }

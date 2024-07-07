@@ -16,9 +16,25 @@ class DuplicateCI implements InvokableRule
      */
     public function __invoke($attribute, $value, $fail)
     {
-        // dd($value);
+        
+        for($i = 9; $i >= 0; $i--){
+            // dd($value[$i]);
+            if(empty($value[$i])){
+                unset($value[$i]);
+            }
+        }
         if(count($value) > count(array_unique($value))){
             $fail("Se encontraron miembros duplicados en la lista.");
         }
+        // if(array_values(array_diff_assoc($value, array_unique($value)))){
+        //     $fail("Se encontraron miembros duplicados en la lista.");
+        // }
+
+        // $arrFinal = array_filter($value, function($item){
+        //     $notEmpty=count($item) == count(array_filter(array_map('trim', $item)));
+        //     return $notEmpty;
+        // });
+        // dd(count($value));
+       
     }
 }

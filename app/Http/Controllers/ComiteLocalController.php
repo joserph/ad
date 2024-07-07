@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use DataTables;
 use App\Models\Comite;
 use App\Models\Scope;
 use App\Models\Geograficos;
@@ -16,17 +15,18 @@ use App\Http\Requests\MembersStoreRequest;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class ComiteLocalController extends Controller
 {
-    // function __construct()
-    // {
-    //     $this->middleware('permission:mostrar-comite', ['only' => ['index']]);
-    //     $this->middleware('permission:crear-comite', ['only' => ['create', 'store']]);
-    //     $this->middleware('permission:ver-comite', ['only' => ['show']]);
-    //     $this->middleware('permission:editar-comite', ['only' => ['edit', 'update']]);
-    //     $this->middleware('permission:eliminar-comite', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:mostrar-comite', ['only' => ['index']]);
+        $this->middleware('permission:crear-comite', ['only' => ['create', 'store']]);
+        $this->middleware('permission:ver-comite', ['only' => ['show']]);
+        $this->middleware('permission:editar-comite', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-comite', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -87,16 +87,17 @@ class ComiteLocalController extends Controller
             ->addColumn('members', function ($row) {
                 return '<button data-path="'. route('committe-local.members', $row) .'" class="btn btn-info btn-sm modal-pers">'.count($row->members).'</button>';
             })
-            ->addColumn('action', function($row){
-                return '<div class="d-flex">
-                    <a href="'. route('committe-local.edit', $row) .'" class="btn btn-icon btn-info btn-sm me-1">
-                        <i class="ti ti-pencil"></i>
-                    </a>
-                    <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('committe-local.modalDelete', $row) .'">
-                        <i class="ti ti-trash"></i>
-                    </button>
-                </div>';
-            })
+            // ->addColumn('action', function($row){
+            //     return '<div class="d-flex">
+            //         <a href="'. route('committe-local.edit', $row) .'" class="btn btn-icon btn-info btn-sm me-1">
+            //             <i class="ti ti-pencil"></i>
+            //         </a>
+            //         <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('committe-local.modalDelete', $row) .'">
+            //             <i class="ti ti-trash"></i>
+            //         </button>
+            //     </div>';
+            // })
+            ->addColumn('action','pages.comite.partials.btns')
             ->rawColumns(['members', 'action'])
             ->toJson();
 
