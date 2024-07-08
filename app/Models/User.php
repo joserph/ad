@@ -31,6 +31,7 @@ class User extends Authenticatable
         'fecha_nacimiento',
         'profesion',
         'genero',
+        'picture',
 
         'password',
     ];

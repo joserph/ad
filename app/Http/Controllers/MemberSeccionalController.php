@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
+use Maatwebsite\Excel\Concerns\Exportable;
 
 class MemberSeccionalController extends Controller
 {
@@ -35,7 +36,8 @@ class MemberSeccionalController extends Controller
      */
     public function index()
     {
-        return view('pages.membersSeccional.index');
+        $seccionales = Seccional::pluck('nombre', 'nombre');
+        return view('pages.membersSeccional.index', compact('seccionales'));
     }
 
     public function list()
@@ -315,8 +317,15 @@ class MemberSeccionalController extends Controller
         return redirect()->route('members-seccional.index');
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new MemberSeccionalExport, 'members_Seccional_' . date('dmY_His_') . '.xlsx');
+        // dd($request);
+        return Excel::download(new MemberSeccionalExport(null), 'members_Seccional_' . date('dmY_His_') . '.xlsx');
+    }
+
+    public function export_seccional(Request $request)
+    {
+        $seccional = $request->seccional;
+        return Excel::download(new MemberSeccionalExport($seccional), 'members_Seccional_' . date('dmY_His_') . '.xlsx');
     }
 }

@@ -35,7 +35,9 @@ class MemberMunicipalController extends Controller
      */
     public function index()
     {
-        return view('pages.membersMunicipal.index');
+        $seccionales = Seccional::all();
+        $geograficos = Geograficos::all();
+        return view('pages.membersMunicipal.index', compact('seccionales', 'geograficos'));
     }
 
     public function list()
@@ -317,6 +319,13 @@ class MemberMunicipalController extends Controller
 
     public function export()
     {
-        return Excel::download(new MemberMunicipalExport, 'members_Municipal_' . date('dmY_His_') . '.xlsx');
+        return Excel::download(new MemberMunicipalExport(null), 'members_Municipal_' . date('dmY_His_') . '.xlsx');
+    }
+
+    public function export_municipal(Request $request)
+    {
+        $municipio = $request->municipio;
+        // dd($municipio);
+        return Excel::download(new MemberMunicipalExport($municipio), 'members_Municipal_' . date('dmY_His_') . '.xlsx');
     }
 }

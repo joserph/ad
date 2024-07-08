@@ -6,6 +6,7 @@ use App\Http\Controllers\MemberSeccionalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OnextenController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
@@ -100,16 +101,21 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/members-seccional', MemberSeccionalController::class)->names('members-seccional');
     Route::get('/member-seccional-list', [MemberSeccionalController::class, 'list'])->name('member-seccional.list');
     Route::get('/member-seccional/export', [MemberSeccionalController::class, 'export'])->name('member-seccional.export');
+    Route::post('/member-seccional/export-seccional', [MemberSeccionalController::class, 'export_seccional'])->name('member-seccional.export-seccional');
     Route::resource('/members-municipal', MemberMunicipalController::class)->names('members-municipal');
     Route::get('/member-municipal-list', [MemberMunicipalController::class, 'list'])->name('member-municipal.list');
     Route::get('/member-municipal/export', [MemberMunicipalController::class, 'export'])->name('member-municipal.export');
+    Route::post('/member-municipal/export-municipal', [MemberMunicipalController::class, 'export_municipal'])->name('member-municipal.export-municipal');
     Route::resource('/members-parroquial', MemberParroquialController::class)->names('members-parroquial');
     Route::get('/member-parroquial-list', [MemberParroquialController::class, 'list'])->name('member-parroquial.list');
     Route::get('/member-parroquial/export', [MemberParroquialController::class, 'export'])->name('member-parroquial.export');
+    Route::post('/member-parroquial/export-parroquial', [MemberParroquialController::class, 'export_parroquial'])->name('member-parroquial.export-parroquial');
     Route::get('/cmd/{command}', function($command){
         Artisan::call($command);
         dd(Artisan::output());
     });
+    Route::resource('profile', ProfileController::class)->names('profile');
+    Route::post('/picture', [ProfileController::class, 'picture'])->name('picture');
 });
 
 

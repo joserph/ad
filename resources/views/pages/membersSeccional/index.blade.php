@@ -1,6 +1,9 @@
 @can('mostrar-comite-ejecutivo-seccional')
 @extends('layouts.app')
-
+@section('styles')
+<link rel="stylesheet" href="{{ asset('assets/libs/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
+@endsection
 @section('content')
     <div class="table-responsive">
         <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4" bis_skin_checked="1">
@@ -32,9 +35,18 @@
                 </a>
                 @endcan
                 @can('descargar-comite-ejecutivo-seccional')
+                
                 <a class="btn btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar" href="{{ route('member-seccional.export') }}">
-                    <i class="ti ti-arrow-down"></i> Exportar
+                    <i class="ti ti-arrow-down"></i> Exportar todo
                 </a>
+                <form action="{{ route('member-seccional.export-seccional') }}" method="POST" class="row g-3">
+                    @csrf
+                    <div class="col-auto">
+                    {!! Form::label('seccional', 'Seccional', ['class' => 'form-label']) !!}
+                    {!! Form::select('seccional', $seccionales, null, ['class' => 'form-select select2', 'placeholder' => 'Seleccionar']) !!}
+                    <button type="submit" class="btn btn-sm btn-warning"><i class="ti ti-arrow-down"></i> Exportar Seccional</button>
+                    </div>
+                </form>
                 @endcan
                 
             </div>
@@ -81,6 +93,9 @@
         window.urlMemberSeccional = '{{ route("member-seccional.list") }}';
     </script>
     <script src="{{ asset('assets/js/pages/members/members-list.js') }}"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+    <script src="{{ asset('assets/libs/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/select2/js/forms/select2.init.js') }}"></script>
 @endsection
 @endcan

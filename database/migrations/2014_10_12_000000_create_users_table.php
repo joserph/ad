@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('fecha_nacimiento')->nullable();
             $table->string('profesion')->nullable();
             $table->string('genero')->nullable();
+            $table->text('picture')->nullable();
 
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

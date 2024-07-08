@@ -13,6 +13,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class MemberSeccionalExport implements WithStyles, WithMapping, WithHeadings, FromQuery
 {
+
+    public function __construct($seccional)
+    {
+        $this->seccional = $seccional;
+        
+        // return $this;
+    }
     public function headings(): array
     {
         return [
@@ -53,7 +60,14 @@ class MemberSeccionalExport implements WithStyles, WithMapping, WithHeadings, Fr
     */
     public function query()
     {
-        return Members::query()->where('alcance', 'Seccional');
+        // dd($this->seccional);
+        if($this->seccional)
+        {
+            return Members::query()->where('alcance', 'Seccional')->where('seccional', $this->seccional);
+        }else{
+            return Members::query()->where('alcance', 'Seccional');
+        }
+        
     }
     
     public function map($member): array

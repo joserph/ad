@@ -13,6 +13,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class MemberMunicipalExport implements WithStyles, WithMapping, WithHeadings, FromQuery
 {
+    public function __construct($municipio)
+    {
+        $this->municipio = $municipio;
+        
+        // return $this;
+    }
+
     public function headings(): array
     {
         return [
@@ -54,7 +61,13 @@ class MemberMunicipalExport implements WithStyles, WithMapping, WithHeadings, Fr
     */
     public function query()
     {
-        return Members::query()->where('alcance', 'Municipal');
+        if($this->municipio)
+        {
+            return Members::query()->where('alcance', 'Municipal')->where('municipio', $this->municipio);
+        }else{
+            return Members::query()->where('alcance', 'Municipal');
+        }
+        
     }
     
     public function map($member): array
