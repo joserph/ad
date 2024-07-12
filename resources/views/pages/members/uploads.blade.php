@@ -34,11 +34,21 @@
 
     <div class="card">
         <div class="card-body position-relative">
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             {{-- <h5 class="card-title fw-semibold mb-4">Carga masiva de miembros</h5> --}}
             <form class="row" method="POST" action="{{ route('members.save-members') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="col-12">
-                    <p class="mb-0">El archivo debe cumplir con la siguiente estructura para el correcto guardado de los miembros. <br> <span class="text-info">Cedula, Nombre, Apellido, Telefono, Correo, Fecha de nacimiento, Profesion, Red Social, Usuario Red Social, Genero, Alcance, Seccional, Municipio, Parroquia, Tipo de cargo, Cargo, Buro</span></p>
+                    <p class="mb-0">El archivo debe cumplir con la siguiente estructura para el correcto guardado de los miembros. <br> <span class="text-info">Cedula, Nombre, Apellido, Telefono, Correo, Fecha de nacimiento, Profesion, Red Social, Usuario Red Social, Genero, Alcance, Seccional, Municipio, Parroquia, Tipo de cargo, Cargo, Buro, Direccion domicilio</span></p>
                 </div>
                 <div class="col-lg-6 mb-3">
                     <label for="" class="form-label">Solo se admiten archivos con extensiones <span class="text-danger">.xls, .xlsx &nbsp;y .txt.</span></label>

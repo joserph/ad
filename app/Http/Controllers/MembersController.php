@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\MemberNacionalExport;
+use App\Imports\MemberImport;
 use App\Models\Comite;
 use App\Models\Members;
 use App\Models\Scope;
@@ -146,7 +147,7 @@ class MembersController extends Controller
     public function store(MembersStoreRequest $request)
     {
         $validated = $request->validated();
-
+        //dd($validated);
         DB::beginTransaction();
         try {
             $member = Members::create($validated);
@@ -280,39 +281,42 @@ class MembersController extends Controller
 
         $file = $request->file('file');
 
-        $extension = $file->getClientOriginalExtension();
+        Excel::import(new MemberImport, $file);
+        
+        // $extension = $file->getClientOriginalExtension();
 
-        if ($extension === 'xlsx' || $extension === 'xls') {
-            $data = Excel::toArray([], $file)[0];
-        } elseif ($extension === 'txt') {
-            $data = file($file);
-            $data = array_map('trim', $data);
-            $data = array_map('str_getcsv', $data);
-        } else {
-            return back()->with('error', 'Formato de archivo no compatible');
-        }
-
-        foreach ($data as $row) {
-            $member = new Members();
-            $member->cedula = $row[0];
-            $member->nombre = $row[1];
-            $member->apellido = $row[2];
-            $member->telefono = $row[3];
-            $member->correo = $row[4];
-            $member->fecha_nacimiento = $row[5];
-            $member->profesion = $row[6];
-            $member->red_social = $row[7] ?? null;
-            $member->usuario_red = $row[8] ?? null;
-            $member->genero = $row[9];
-            $member->alcance = $row[10] ?? null;
-            $member->seccional = $row[11] ?? null;
-            $member->municipio = $row[12] ?? null;
-            $member->parroquia = $row[13] ?? null;
-            $member->tipo_cargo = $row[14] ?? null;
-            $member->cargo = $row[15] ?? null;
-            $member->buro = $row[16] ?? null;
-            $member->save();
-        }
+        // if ($extension === 'xlsx' || $extension === 'xls') {
+        //     $data = Excel::toArray([], $file)[0];
+        // } elseif ($extension === 'txt') {
+        //     $data = file($file);
+        //     $data = array_map('trim', $data);
+        //     $data = array_map('str_getcsv', $data);
+        // } else {
+        //     return back()->with('error', 'Formato de archivo no compatible');
+        // }
+        // dd($data);
+        
+        // foreach ($data as $row) {
+        //     $member = new Members();
+        //     $member->cedula = $row[0];
+        //     $member->nombre = $row[1];
+        //     $member->apellido = $row[2];
+        //     $member->telefono = $row[3];
+        //     $member->correo = $row[4];
+        //     $member->fecha_nacimiento = $row[5];
+        //     $member->profesion = $row[6];
+        //     $member->red_social = $row[7] ?? null;
+        //     $member->usuario_red = $row[8] ?? null;
+        //     $member->genero = $row[9];
+        //     $member->alcance = $row[10] ?? null;
+        //     $member->seccional = $row[11] ?? null;
+        //     $member->municipio = $row[12] ?? null;
+        //     $member->parroquia = $row[13] ?? null;
+        //     $member->tipo_cargo = $row[14] ?? null;
+        //     $member->cargo = $row[15] ?? null;
+        //     $member->buro = $row[16] ?? null;
+        //     $member->save();
+        // }
 
         session()->flash('success', 'Usuarios guardados correctamente.');
 

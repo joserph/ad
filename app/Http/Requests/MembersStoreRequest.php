@@ -71,6 +71,7 @@ class MembersStoreRequest extends FormRequest
             'cargo' => 'nullable|string|max:255',
             'buro' => 'nullable|string|max:255',
             'cargo_pub' => 'nullable|string|max:255',
+            'direccion' => 'nullable|string|max:255',
             // 'esUsuario' => 'required|in:si,no',
         ];
     }

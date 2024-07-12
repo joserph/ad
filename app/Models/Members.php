@@ -29,6 +29,7 @@ class Members extends Model
         'buro',
         'cargo_pub',
         'comite_id',
+        'direccion',
         // 'password',
         // 'confirm_password',
     ];

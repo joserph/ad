@@ -353,6 +353,14 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+                <!-- Direccion de Domicilio -->
+                <div class="mb-3 col-md-8 col-lg-6">
+                    <label for="direccion" class="form-label">Direccion de Domicilio</label>
+                    <input type="text" class="form-control @error('direccion') is-invalid @enderror" id="" name="direccion" value="{{ $member->direccion }}">
+                    @error('direccion')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
                 <div class="col-12 align-self-end">
                     <button type="submit" class="btn btn-primary">Registrar</button>
                 </div>
